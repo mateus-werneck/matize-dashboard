@@ -7,13 +7,13 @@ interface SideBarProps {
   showText: boolean;
 }
 export const SideBar = ({ showText }: SideBarProps) => {
-  const { dashboard, getDashboard } = useDashboard();
+  const { dashboard } = useDashboard();
 
   return (
     <SideBarContainer>
       <HeaderNavBar>
         <NavBarItem route="/" name="Dashboard" icon="HomeIcon" />
-        {getDashboard()}
+        {dashboard}
       </HeaderNavBar>
     </SideBarContainer>
   );
@@ -24,10 +24,11 @@ function useDashboard() {
 
   async function findAll() {
     const response = await matizeAPI.get('admin-dashboard');
-    setDashboard(response.data);
+    const dashboard = getDashboard(response.data);
+    setDashboard(dashboard);
   }
 
-  function getDashboard() {
+  function getDashboard(data: any[]) {
     return dashboard.map((menu) => (
       <NavBarItem
         key={menu['name'] + '-' + menu['icon']}
@@ -42,5 +43,5 @@ function useDashboard() {
     findAll();
   }, []);
 
-  return { dashboard, getDashboard };
+  return { dashboard };
 }
