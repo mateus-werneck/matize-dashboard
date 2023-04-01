@@ -1,25 +1,31 @@
+import {
+  HeaderLogoContainer,
+  LogoName,
+  LogoNameContainer
+} from '@Components/Header/Logo/style';
 import Image from 'next/image';
 import Link from 'next/link';
-import { HeaderLogo } from '../style';
 
 export const Logo = () => {
-  const LogoImage = () => {
-    return (
-      <Link href={'/'} style={{ maxHeight: 48 }}>
-        <Image
-          src={'/favicon-96x96.png'}
-          alt="matize-logo-header"
-          width={48}
-          height={48}
-        />
-      </Link>
-    );
-  };
-
   return (
-    <HeaderLogo>
+    <HeaderLogoContainer>
       <LogoImage />
-      <h3 style={{ marginRight: '5px' }}>Matize</h3>
-    </HeaderLogo>
+      <LogoNameContainer>
+        <LogoName>Matize</LogoName>
+      </LogoNameContainer>
+    </HeaderLogoContainer>
+  );
+};
+
+const LogoImage = () => {
+  return (
+    <Link href={'/'} style={{ maxHeight: 64, marginBottom: '7px' }}>
+      <Image
+        src={'/android-icon-192x192-removebg.png'}
+        alt="matize-logo-header"
+        width={64}
+        height={64}
+      />
+    </Link>
   );
 };

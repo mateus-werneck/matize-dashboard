@@ -1,11 +1,20 @@
 'use client';
+import { MenuButton } from '@Components/Header/MenuButton/index';
+import { SideBar } from '@Components/Header/SideBar/index';
+import { useState } from 'react';
 import { Logo } from './Logo';
-import { HeaderContainer } from './style';
+import { HeaderLeftContainer, HeaderMainContainer } from './style';
 
 export default () => {
-  return (
-    <HeaderContainer>
-      <Logo/>
-    </HeaderContainer>
+  const [showSideBarText, setShowSiderBarText] = useState<boolean>(true)
+  
+   return (
+    <HeaderMainContainer>
+      <HeaderLeftContainer>
+        <Logo />
+        <MenuButton hideText={setShowSiderBarText}/>
+      </HeaderLeftContainer>
+      <SideBar showText={showSideBarText}/>
+    </HeaderMainContainer>
   );
 };

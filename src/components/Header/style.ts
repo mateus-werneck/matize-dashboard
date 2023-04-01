@@ -1,14 +1,15 @@
 'use client';
 import styled from 'styled-components';
 
-export const HeaderContainer = styled.div`
-  display: flex;
+export const HeaderMainContainer = styled.div`
+  display: block;
+  height: 70px;
   margin-bottom: 20px;
+  background: white;
+  
 `;
 
-export const HeaderLogo = styled.div`
+export const HeaderLeftContainer = styled.div`
   display: flex;
-  justify-content: space-between;
-  align-items: center; 
-  gap: 10px;
+  background: white;
 `;

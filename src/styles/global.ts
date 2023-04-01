@@ -1,7 +1,5 @@
-'use client'
-import { createGlobalStyle } from "styled-components";
-
-
+'use client';
+import { createGlobalStyle } from 'styled-components';
 
 export const GlobalStyle = createGlobalStyle`
     @font-face {
@@ -24,15 +22,23 @@ export const GlobalStyle = createGlobalStyle`
     --pink-400:#ED64A6;
     --pink-500:#D53F8C;
     --pink-600: #B83280;
-    
     --purple-100: #E9D8FD;
+
+
     --white: #FFFFFF;
+    --light-gray: #F0F0F4;
+    --gray-light: #aab2bd;
+    --gray-lighter: #e8eff4;
+    --gray-lightest: #e6e9ed;
+    --gray-20: #ededf0;
     --gray-50: #e1e1e6;
     --gray-300: #a8a8b3;
+    --gray-500: #5B5B66;
     --gray-700: #29292e;
     --gray-800: #1f2729;
     --gray-900: #121214;
-    
+
+   
     --cyan-500: #61dafb;
     --yellow-580: #eba417;
     
@@ -45,6 +51,9 @@ export const GlobalStyle = createGlobalStyle`
     --purple-200: #824575;
     --purple-150: #926cb8;
     --blue-100: #324498;
+
+
+
     @media(max-width: 1280px) {
         html {
             font-size:87.5%;
@@ -66,9 +75,8 @@ export const GlobalStyle = createGlobalStyle`
     letter-spacing: 1.5px;
 }
 body {
-    background: white;
+    background: var(--gray-50);
     -webkit-font-smoothing: antialiased;
-    
 }
 body, input, textarea, select, button {
     font-family: "Agrandir", "Montserrat", sans-serif;
@@ -103,5 +111,11 @@ button {
 }
 a {
     text-decoration: none;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
 }
 `;
