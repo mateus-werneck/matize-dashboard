@@ -29,7 +29,7 @@ function useDashboard() {
   }
 
   function getDashboard(data: any[]) {
-    return dashboard.map((menu) => (
+    return data.map((menu) => (
       <NavBarItem
         key={menu['name'] + '-' + menu['icon']}
         route={menu['route']}
