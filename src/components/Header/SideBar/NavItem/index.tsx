@@ -2,6 +2,7 @@ import HomeIcon from '@mui/icons-material/Home';
 import InventoryIcon from '@mui/icons-material/Inventory';
 import PersonIcon from '@mui/icons-material/Person';
 import ShoppingBasketIcon from '@mui/icons-material/ShoppingBasket';
+import WidgetsIcon from '@mui/icons-material/Widgets';
 import React from 'react';
 import { NavBarLine, NavBarLink } from './style';
 
@@ -16,7 +17,7 @@ export const NavBarItem = ({ route, name, icon }: NavBarItemProps) => {
     <NavBarLine>
       <NavBarLink href={route}>
         <span>{name}</span>
-        {getIcon(icon ? icon : '')}
+        {getIcon(icon ? icon : 'StandardIcon')}
       </NavBarLink>
     </NavBarLine>
   );
@@ -26,7 +27,8 @@ const MenuIcons: MenuIconsType = {
   HomeIcon: <HomeIcon />,
   InventoryIcon: <InventoryIcon />,
   PersonIcon: <PersonIcon />,
-  ShoppingBasketIcon: <ShoppingBasketIcon />
+  ShoppingBasketIcon: <ShoppingBasketIcon />,
+  StandardIcon: <WidgetsIcon />
 };
 
 type MenuIconsType = {
@@ -34,6 +36,8 @@ type MenuIconsType = {
 };
 
 function getIcon(icon: string) {
-  if (icon == '') return <></>;
-  return MenuIcons[icon];
+  const menuIcon = MenuIcons[icon];
+  if (!menuIcon) return MenuIcons.StandardIcon;
+
+  return menuIcon;
 }
