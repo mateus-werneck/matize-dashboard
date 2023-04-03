@@ -7,41 +7,52 @@ interface SideBarProps {
   showText: boolean;
 }
 export const SideBar = ({ showText }: SideBarProps) => {
-  const { dashboard } = useDashboard();
+  const { dashboard } = useDashboard(showText);
 
   return (
-    <SideBarContainer>
-      <HeaderNavBar>
-        <NavBarItem route="/" name="Dashboard" icon="HomeIcon" />
+    <SideBarContainer style={{ maxWidth: showText ? '250px' : '90px' }}>
+      <HeaderNavBar style={{alignItems: showText ? 'inherit' : 'center'}}>
+        <NavBarItem
+          route="/"
+          name={showText ? 'Dashboard' : ''}
+          icon="HomeIcon"
+        />
         {dashboard}
       </HeaderNavBar>
     </SideBarContainer>
   );
 };
 
-function useDashboard() {
+function useDashboard(showText: boolean) {
+  const [rawDashboard, setRawDashboard] = useState<any[]>([]);
   const [dashboard, setDashboard] = useState<any[]>([]);
 
-  async function findAll() {
-    const response = await matizeAPI.get('admin-dashboard');
-    const dashboard = getDashboard(response.data);
+  async function appendDashboard() {
+    const dashboard = await treatDashboard();
     setDashboard(dashboard);
   }
 
-  function getDashboard(data: any[]) {
-    return data.map((menu) => (
+  async function treatDashboard() {
+    if (!rawDashboard.length) await appendRawDashboard();
+
+    return rawDashboard.map((menu) => (
       <NavBarItem
         key={menu['name'] + '-' + menu['icon']}
         route={menu['route']}
-        name={menu['name']}
+        name={showText ? menu['name'] : ''}
         icon={menu['icon']}
       />
     ));
   }
 
+  async function appendRawDashboard() {
+    const response = await matizeAPI.get('admin-dashboard');
+    setRawDashboard(response.data);
+  }
+
   useMemo(() => {
-    findAll();
-  }, []);
+    appendDashboard();
+  }, [showText]);
 
   return { dashboard };
 }

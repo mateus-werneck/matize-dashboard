@@ -3,7 +3,6 @@ import styled from 'styled-components';
 
 export const HeaderLogoContainer = styled.div`
   display: flex;
-  max-width: 250px;
   align-items: center;
   justify-content: space-evenly;
   padding-left: 1.25rem;

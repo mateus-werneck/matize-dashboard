@@ -3,10 +3,10 @@ import Link from 'next/link';
 import styled from 'styled-components';
 
 export const NavBarLine = styled.li`
-  /* margin-left: 1rem; */
   height: 40px;
   line-height: 1.8;
   transition: all .15s cubic-bezier(.07,.95,0,1);
+
 
   &:hover {
     filter: brightness(1.1);

@@ -16,7 +16,7 @@ export const NavBarItem = ({ route, name, icon }: NavBarItemProps) => {
   return (
     <NavBarLine>
       <NavBarLink href={route}>
-        <span>{name}</span>
+        {name != '' && <span>{name}</span>}
         {getIcon(icon ? icon : 'StandardIcon')}
       </NavBarLink>
     </NavBarLine>

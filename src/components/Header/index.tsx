@@ -11,7 +11,7 @@ export default () => {
   return (
     <HeaderMainContainer>
       <HeaderLeftContainer>
-        <Logo>
+        <Logo showText={showSideBarText}>
           <MenuButton hideText={setShowSiderBarText} />
         </Logo>
       </HeaderLeftContainer>
