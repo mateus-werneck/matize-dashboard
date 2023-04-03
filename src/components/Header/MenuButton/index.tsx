@@ -14,9 +14,9 @@ export const MenuButton = ({hideText}: MenuButtonProps) => {
         onClick={onClick}
         variant="text"
         size="small"
-        style={{borderRadius: '0px' }}
+        style={{borderRadius: '0px', paddingBottom: '10px' }}
       >
-        <MenuIcon fontSize="small" htmlColor="black" />
+        <MenuIcon fontSize="small" htmlColor="gray" />
       </MatizeButton>
     </>
   );

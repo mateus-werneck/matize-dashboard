@@ -6,15 +6,16 @@ import { Logo } from './Logo';
 import { HeaderLeftContainer, HeaderMainContainer } from './style';
 
 export default () => {
-  const [showSideBarText, setShowSiderBarText] = useState<boolean>(true)
-  
-   return (
+  const [showSideBarText, setShowSiderBarText] = useState<boolean>(true);
+
+  return (
     <HeaderMainContainer>
       <HeaderLeftContainer>
-        <Logo />
-        <MenuButton hideText={setShowSiderBarText}/>
+        <Logo>
+          <MenuButton hideText={setShowSiderBarText} />
+        </Logo>
       </HeaderLeftContainer>
-      <SideBar showText={showSideBarText}/>
+      <SideBar showText={showSideBarText} />
     </HeaderMainContainer>
   );
 };

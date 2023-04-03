@@ -4,7 +4,7 @@ import styled from 'styled-components';
 export const SideBarContainer = styled.nav`
   display: block;
   max-width: 250px;
-  height:100vh;
+  min-height: calc(100vh - 70px);
   background: var(--gray-20);
 `;
 
