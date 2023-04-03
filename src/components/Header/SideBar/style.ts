@@ -5,6 +5,7 @@ export const SideBarContainer = styled.nav`
   display: block;
   min-height: calc(100vh - 70px);
   background: var(--gray-20);
+  transition: opacity 1s ease-out;
 `;
 
 export const HeaderNavBar = styled.ul`
@@ -14,4 +15,5 @@ export const HeaderNavBar = styled.ul`
   gap: 15px;
   background: var(--gray-20);
   padding-top: 1.25rem;
+  transition: opacity 1s ease-out;
 `;

@@ -1,5 +1,5 @@
 import { MatizeButton } from '@Components/Button';
-import MenuIcon from '@mui/icons-material/Menu';
+import { StyledMenuIcon } from './style';
 
 interface MenuButtonProps {
   hideText: (value: any) => any;
@@ -14,9 +14,9 @@ export const MenuButton = ({hideText}: MenuButtonProps) => {
         onClick={onClick}
         variant="text"
         size="small"
-        style={{borderRadius: '0px', paddingBottom: '10px' }}
+        style={{borderRadius: '0px', paddingBottom: '10px'}}
       >
-        <MenuIcon fontSize="small" htmlColor="gray" />
+        <StyledMenuIcon fontSize="small"/>
       </MatizeButton>
     </>
   );

@@ -2,7 +2,7 @@ import { GlobalStyle } from '@/styles/global';
 import Header from '@Components/Header';
 
 export const metadata = {
-  title: 'Matize | Dashboard',
+  title: 'Matize',
   viewport: {
     initialScale: 1,
     width: 'device-wdith'

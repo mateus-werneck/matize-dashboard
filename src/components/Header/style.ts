@@ -7,10 +7,12 @@ export const HeaderMainContainer = styled.div`
   height: 70px;
   margin-bottom: 20px;
   background: white;
+  transition: opacity 1s ease-out;
   
 `;
 
 export const HeaderLeftContainer = styled.div`
   display: flex;
   background: white;
+  transition: opacity 1s ease-out;
 `;

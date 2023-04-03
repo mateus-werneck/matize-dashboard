@@ -5,8 +5,6 @@ import styled from 'styled-components';
 export const NavBarLine = styled.li`
   height: 40px;
   line-height: 1.8;
-  transition: all .15s cubic-bezier(.07,.95,0,1);
-
 
   &:hover {
     filter: brightness(1.1);

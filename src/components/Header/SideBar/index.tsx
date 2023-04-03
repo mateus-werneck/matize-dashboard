@@ -20,7 +20,7 @@ export const SideBar = ({ showText }: SideBarProps) => {
 
 function useDashboard(showText: boolean) {
   const [rawDashboard, setRawDashboard] = useState<any[]>([]);
-  const [dashboard, setDashboard] = useState<any[]>([]);
+  const [dashboard, setDashboard] = useState<JSX.Element[]>([]);
 
   async function appendDashboard() {
     const dashboard = await treatDashboard();

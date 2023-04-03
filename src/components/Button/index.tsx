@@ -1,5 +1,5 @@
-import { Button } from '@mui/material';
 import { CSSProperties } from 'react';
+import { StyledMatizeButton } from './style';
 
 interface ButtonProps {
   onClick: (value: any) => void;
@@ -26,7 +26,7 @@ export const MatizeButton = ({
 }: ButtonProps) => {
   return (
     <>
-      <Button
+      <StyledMatizeButton
         variant={variant ? variant : 'contained'}
         size={size ? size : 'medium'}
         type={type ? type : 'button'}
@@ -37,7 +37,7 @@ export const MatizeButton = ({
         style={style}
       >
         {children}
-      </Button>
+      </StyledMatizeButton>
     </>
   );
 };
