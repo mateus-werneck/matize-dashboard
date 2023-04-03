@@ -15,7 +15,7 @@ interface NavBarItemProps {
 export const NavBarItem = ({ route, name, icon }: NavBarItemProps) => {
   return (
     <NavBarLine>
-      <NavBarLink href={route}>
+      <NavBarLink href={route} aria-label={name}>
         {name != '' && <span>{name}</span>}
         {getIcon(icon ? icon : 'StandardIcon')}
       </NavBarLink>

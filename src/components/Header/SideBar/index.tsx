@@ -1,5 +1,5 @@
 import { matizeAPI } from '@API/matize';
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { NavBarItem } from './NavItem';
 import { HeaderNavBar, SideBarContainer } from './style';
 
@@ -11,12 +11,7 @@ export const SideBar = ({ showText }: SideBarProps) => {
 
   return (
     <SideBarContainer style={{ maxWidth: showText ? '250px' : '90px' }}>
-      <HeaderNavBar style={{alignItems: showText ? 'inherit' : 'center'}}>
-        <NavBarItem
-          route="/"
-          name={showText ? 'Dashboard' : ''}
-          icon="HomeIcon"
-        />
+      <HeaderNavBar style={{ alignItems: showText ? 'inherit' : 'center' }}>
         {dashboard}
       </HeaderNavBar>
     </SideBarContainer>
@@ -33,9 +28,11 @@ function useDashboard(showText: boolean) {
   }
 
   async function treatDashboard() {
-    if (!rawDashboard.length) await appendRawDashboard();
+    let data = rawDashboard;
 
-    return rawDashboard.map((menu) => (
+    if (!rawDashboard.length) data = await appendRawDashboard();
+
+    const newDashboard = data.map((menu) => (
       <NavBarItem
         key={menu['name'] + '-' + menu['icon']}
         route={menu['route']}
@@ -43,12 +40,27 @@ function useDashboard(showText: boolean) {
         icon={menu['icon']}
       />
     ));
+
+    return getStandardDashboard().concat(newDashboard);
   }
 
   async function appendRawDashboard() {
     const response = await matizeAPI.get('admin-dashboard');
     setRawDashboard(response.data);
+    return response.data;
   }
+
+  function getStandardDashboard() {
+    const name = showText ? 'Dashboard' : '';
+    const icon = 'HomeIcon';
+    return [
+      <NavBarItem key={name + '-' + icon} route="/" name={name} icon={icon} />
+    ];
+  }
+
+  useEffect(() => {
+    appendDashboard();
+  }, []);
 
   useMemo(() => {
     appendDashboard();
