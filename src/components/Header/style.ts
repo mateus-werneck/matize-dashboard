@@ -3,12 +3,11 @@ import styled from 'styled-components';
 
 export const HeaderMainContainer = styled.div`
   display: block;
-  /* position: absolute; */
   height: 70px;
   margin-bottom: 20px;
   background: white;
   transition: opacity 1s ease-out;
-  
+
 `;
 
 export const HeaderLeftContainer = styled.div`
@@ -16,7 +15,7 @@ export const HeaderLeftContainer = styled.div`
   background: white;
   transition: opacity 1s ease-out;
 
-  @media screen and (max-width: 200px) {
+  @media screen and (max-width: 540px) {
     justify-content: space-evenly;
   }
 `;

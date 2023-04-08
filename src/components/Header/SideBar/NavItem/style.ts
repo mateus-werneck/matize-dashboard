@@ -16,7 +16,7 @@ export const NavBarLink = styled(Link)`
   align-items: center;
   justify-content: space-between;
 
-  @media screen and (max-width: 228px) {
+  @media screen and (max-width: 540px) {
     justify-content: space-evenly;
   }
 
@@ -31,7 +31,7 @@ export const NavBarLinkLabel = styled.span`
   font-size: 0.7rem;
   color: var(--gray-500);
 
-  @media screen and (max-width: 228px) {
+  @media screen and (max-width: 540px) {
     display: none;
   }
 `;

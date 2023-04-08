@@ -4,7 +4,7 @@ import styled from 'styled-components';
 export const StyledMenuIcon = styled(MenuIcon)`
   color: gray;
 
-  @media screen and (max-width: 200px) {
+  @media screen and (max-width: 540px) {
     display: none;
   }
 

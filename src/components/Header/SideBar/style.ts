@@ -6,6 +6,11 @@ export const SideBarContainer = styled.nav`
   min-height: calc(100vh - 70px);
   background: var(--gray-20);
   transition: opacity 1s ease-out;
+
+  @media screen and (max-width: 540px) {
+    min-height: 10px;
+    overflow: visible;
+  }
 `;
 
 export const HeaderNavBar = styled.ul`
@@ -16,4 +21,9 @@ export const HeaderNavBar = styled.ul`
   background: var(--gray-20);
   padding-top: 1.25rem;
   transition: opacity 1s ease-out;
+
+  @media screen and (max-width: 540px) {
+    align-items: center;
+    width: 180%;
+  }
 `;

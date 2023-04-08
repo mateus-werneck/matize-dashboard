@@ -1,7 +1,7 @@
 'use client';
 import Header from '@Components/Header';
 import React from 'react';
-import { GlobalBody } from './style';
+import { GlobalBody, MainContainer, MainPanel } from './style';
 
 interface MatizeBodyProps {
   children: React.ReactNode;
@@ -10,9 +10,11 @@ interface MatizeBodyProps {
 export const MatizeBody = ({ children }: MatizeBodyProps) => {
   return (
     <GlobalBody>
-      <Header />
-      {children}
-      {/* <Footer /> */}
+      <MainContainer>
+        <Header />
+        <MainPanel>{children}</MainPanel>
+        {/* <Footer /> */}
+      </MainContainer>
     </GlobalBody>
   );
 };

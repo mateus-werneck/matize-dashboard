@@ -8,11 +8,11 @@ export const HeaderLogoContainer = styled.div`
   padding-left: 1.25rem;
   gap: 10px;
 
-  @media screen and (max-width: 240px) {
+  @media screen and (max-width: 540px) {
     padding-left: 2.5rem;
   }
 
-  @media screen and (max-width: 200px) {
+  @media screen and (max-width: 540px) {
     padding-left: 4rem;
   }
 
@@ -38,7 +38,7 @@ export const LogoLink = styled(Link)`
 `;
 
 export const LogoNameContainer = styled.div`
-  @media screen and (max-width: 240px) {
+  @media screen and (max-width: 540px) {
     display: none;
   }
 `;
