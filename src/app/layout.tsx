@@ -1,5 +1,5 @@
-import { GlobalStyle } from '@/styles/global';
-import Header from '@Components/Header';
+import { MatizeBody } from '@Components/Body';
+import { GlobalStyle } from '@Styles/global';
 
 export const metadata = {
   title: 'Matize',
@@ -94,11 +94,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <GlobalStyle />
-      <body>
-      <Header />
+      <MatizeBody>
         {children}
-        {/* <Footer /> */}
-      </body>
+      </MatizeBody>
     </html>
   );
 }
