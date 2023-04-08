@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form';
 import { ZodType, z } from 'zod';
 import { MatizeInput, MatizeInputProps } from './Input';
 import { StyledMatizeAlertInput } from './Input/style';
+import { FormInputContainer } from './style';
 
 interface MatizeFormProps {
   formInputs: MatizeFormInput[];
@@ -31,7 +32,7 @@ export const MatizeForm = ({
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       {formInputs.map((formInput) => (
-        <div key={formInput.name + '-div'} style={{ display: 'flex', flexDirection: 'column'}}>
+        <FormInputContainer key={formInput.name + '-div'}>
           <MatizeInput
             {...formInput}
             register={register}
@@ -43,10 +44,14 @@ export const MatizeForm = ({
               {errors[formInput.name]['message']}
             </StyledMatizeAlertInput>
           )}
-        </div>
+        </FormInputContainer>
       ))}
       {submitButton && (
-        <MatizeButton type="submit" onClick={handleSubmit(onSubmit)}>
+        <MatizeButton
+          type="submit"
+          onClick={handleSubmit(onSubmit)}
+          style={{ marginTop: '1rem' }}
+        >
           {submitButton}
         </MatizeButton>
       )}

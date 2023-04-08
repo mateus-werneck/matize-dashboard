@@ -25,9 +25,10 @@
     ],
     "paths": {
       "@/*": ["./src/*"],
+      "@API/*": ["./src/app/api/*"],
       "@Components/*": ["./src/components/*"],
+      "@Forms/*": ["./src/components/Form/*"],
       "@Styles/*": ["./src/styles/*"],
-      "@API/*": ["./src/app/api/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],

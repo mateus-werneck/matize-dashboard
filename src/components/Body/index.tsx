@@ -20,7 +20,6 @@ export const MatizeBody = ({ children }: MatizeBodyProps) => {
         <MainPanel style={{ left: showSideBarText ? '250px' : '90px' }}>
           {children}
         </MainPanel>
-        {/* <Footer /> */}
       </MainContainer>
     </GlobalBody>
   );
