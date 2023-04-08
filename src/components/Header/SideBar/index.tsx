@@ -28,6 +28,7 @@ function useDashboard(showText: boolean) {
   }
 
   async function treatDashboard() {
+    const standardDashboard = getStandardDashboard()
     let data = rawDashboard;
 
     if (!rawDashboard.length) data = await appendRawDashboard();
@@ -41,7 +42,7 @@ function useDashboard(showText: boolean) {
       />
     ));
 
-    return getStandardDashboard().concat(newDashboard);
+    return standardDashboard.concat(newDashboard);
   }
 
   async function appendRawDashboard() {

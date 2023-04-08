@@ -4,7 +4,7 @@ import PersonIcon from '@mui/icons-material/Person';
 import ShoppingBasketIcon from '@mui/icons-material/ShoppingBasket';
 import WidgetsIcon from '@mui/icons-material/Widgets';
 import React from 'react';
-import { NavBarLine, NavBarLink } from './style';
+import { NavBarLine, NavBarLink, NavBarLinkLabel } from './style';
 
 interface NavBarItemProps {
   route: string;
@@ -16,7 +16,7 @@ export const NavBarItem = ({ route, name, icon }: NavBarItemProps) => {
   return (
     <NavBarLine>
       <NavBarLink href={route} aria-label={name}>
-        {name != '' && <span>{name}</span>}
+        {name != '' && <NavBarLinkLabel>{name}</NavBarLinkLabel>}
         {getIcon(icon ? icon : 'StandardIcon')}
       </NavBarLink>
     </NavBarLine>

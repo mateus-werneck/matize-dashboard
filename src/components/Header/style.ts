@@ -15,4 +15,8 @@ export const HeaderLeftContainer = styled.div`
   display: flex;
   background: white;
   transition: opacity 1s ease-out;
+
+  @media screen and (max-width: 200px) {
+    justify-content: space-evenly;
+  }
 `;

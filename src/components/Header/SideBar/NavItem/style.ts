@@ -9,22 +9,29 @@ export const NavBarLine = styled.li`
   &:hover {
     filter: brightness(1.1);
   }
-`
+`;
 
 export const NavBarLink = styled(Link)`
   display: flex;
   align-items: center;
   justify-content: space-between;
 
-  span {
-    margin-left: 2.25rem;
-    font-size:0.7rem; 
-    color: var(--gray-500);
+  @media screen and (max-width: 228px) {
+    justify-content: space-evenly;
   }
 
   svg {
     margin-right: 0.5rem;
     color: var(--purple-150);
   }
+`;
 
-`
+export const NavBarLinkLabel = styled.span`
+  margin-left: 2.25rem;
+  font-size: 0.7rem;
+  color: var(--gray-500);
+
+  @media screen and (max-width: 228px) {
+    display: none;
+  }
+`;

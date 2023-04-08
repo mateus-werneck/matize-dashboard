@@ -12,6 +12,10 @@ export const HeaderLogoContainer = styled.div`
     padding-left: 2.5rem;
   }
 
+  @media screen and (max-width: 200px) {
+    padding-left: 4rem;
+  }
+
   button {
     min-height: 64px;
   }
@@ -25,6 +29,11 @@ export const LogoLink = styled(Link)`
 
   h2 {
     padding-left: 10px;
+  }
+
+  &:hover {
+    transition: 1s;
+    color: var(--pink-400);
   }
 `;
 
