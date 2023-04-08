@@ -2,12 +2,14 @@
 import styled from 'styled-components';
 
 export const SideBarContainer = styled.nav`
-  display: block;
+  display: flex;
+  flex-direction: column;
   min-height: calc(100vh - 70px);
   background: var(--gray-20);
   transition: opacity 1s ease-out;
 
   @media screen and (max-width: 540px) {
+    min-width: 100%;
     min-height: 10px;
     overflow: visible;
   }
@@ -21,9 +23,4 @@ export const HeaderNavBar = styled.ul`
   background: var(--gray-20);
   padding-top: 1.25rem;
   transition: opacity 1s ease-out;
-
-  @media screen and (max-width: 540px) {
-    align-items: center;
-    width: 180%;
-  }
 `;

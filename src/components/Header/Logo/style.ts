@@ -9,11 +9,10 @@ export const HeaderLogoContainer = styled.div`
   gap: 10px;
 
   @media screen and (max-width: 540px) {
-    padding-left: 2.5rem;
-  }
-
-  @media screen and (max-width: 540px) {
-    padding-left: 4rem;
+    padding-left: 3.5rem;
+    justify-content: center;
+    align-items: center;
+    min-width: 100%;
   }
 
   button {
@@ -26,6 +25,10 @@ export const LogoLink = styled(Link)`
   align-items: center;
   justify-content: space-between;
   gap: 10px;
+
+  @media screen and (max-width: 540px) {
+    justify-content: center;
+  }
 
   h2 {
     padding-left: 10px;

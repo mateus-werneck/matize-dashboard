@@ -7,6 +7,7 @@ export const HeaderMainContainer = styled.div`
   margin-bottom: 20px;
   background: white;
   transition: opacity 1s ease-out;
+  width: 100%;
 
 `;
 
