@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
-export const GlobalBody = styled.body``;
+export const GlobalBody = styled.body`
+`;
 
 export const MainContainer = styled.div`
   display: flex;
@@ -10,11 +11,6 @@ export const MainContainer = styled.div`
 `;
 
 export const MainPanel = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-
   position: relative;
   min-height: calc(100vh - 70px);
 
