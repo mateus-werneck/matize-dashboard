@@ -21,6 +21,7 @@ export interface MatizeInputProps {
   styles?: CSSProperties;
   readOnly?: boolean;
   required?: boolean;
+  hasErrors: boolean;
   register: UseFormRegister<FieldValues>;
 }
 
@@ -32,19 +33,18 @@ export const MatizeInput = ({
   styles,
   readOnly,
   required,
+  hasErrors,
   register
 }: MatizeInputProps) => {
-  const defaultProps = {
-    readOnly: readOnly ? readOnly : false,
-    required: required ? required : false
-  };
-
   const Input = (
     <StyledMatizeInput
+      {...register(name)}
       type={type ? type : 'text'}
       placeholder={placeHolder ? placeHolder : ''}
-      {...(register(name), defaultProps)}
+      readOnly={readOnly ? readOnly : false}
+      required={required ? required : true}
       style={styles}
+      hasErrors={hasErrors}
     />
   );
 

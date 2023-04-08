@@ -5,6 +5,7 @@ import { SearchBarContainer } from './style';
 
 export const SearchBar = () => {
   const onSubmit = (data: any) => {
+    console.log('ola');
     console.log(data);
   };
 
@@ -26,13 +27,13 @@ function getFormInputs(): MatizeFormInput[] {
       name: 'searchBarInput',
       type: 'search',
       placeHolder: 'Pesquisar',
-      styles: { width: '1080px' }
+      styles: { width: '1080px', border: 'none' }
     }
   ];
 }
 
 function getValidationSchema(): ZodType<any, any, any> {
   return z.object({
-    searchBarInput: z.string().max(2, 'Digite um valor válido.')
+    searchBarInput: z.string()
   });
 }
