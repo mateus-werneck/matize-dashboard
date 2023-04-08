@@ -1,6 +1,6 @@
 'use client';
 import Header from '@Components/Header';
-import React from 'react';
+import React, { useState } from 'react';
 import { GlobalBody, MainContainer, MainPanel } from './style';
 
 interface MatizeBodyProps {
@@ -8,11 +8,18 @@ interface MatizeBodyProps {
 }
 
 export const MatizeBody = ({ children }: MatizeBodyProps) => {
+  const [showSideBarText, setShowSiderBarText] = useState<boolean>(true);
+
   return (
     <GlobalBody>
       <MainContainer>
-        <Header />
-        <MainPanel>{children}</MainPanel>
+        <Header
+          showSideBarText={showSideBarText}
+          setShowSiderBarText={setShowSiderBarText}
+        />
+        <MainPanel style={{ left: showSideBarText ? '250px' : '90px' }}>
+          {children}
+        </MainPanel>
         {/* <Footer /> */}
       </MainContainer>
     </GlobalBody>
