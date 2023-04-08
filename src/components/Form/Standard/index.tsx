@@ -27,11 +27,7 @@ export const MatizeForm = ({
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       {formInputs.map((formInput) => (
-        <MatizeInput
-          name={formInput.name}
-          register={register}
-          type={formInput.type}
-        />
+        <MatizeInput {...formInput} register={register} key={formInput.name} />
       ))}
     </form>
   );

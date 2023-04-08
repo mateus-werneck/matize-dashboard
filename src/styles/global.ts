@@ -82,12 +82,14 @@ body, input, textarea, select, button {
     font-family: "Agrandir", "Montserrat", sans-serif;
 }
 input, select, textarea{
+    font-size: 0.8rem;
     text-indent: 1rem;
-    border: 1px solid var(--pink-200);
+    /* border: 1px solid var(--pink-200); */
+    border: none;
     box-shadow: none;
     &:focus {
         outline: none !important;
-        border: 1px solid var(--pink-300);
+        /* border: 1px solid var(--pink-300); */
         box-shadow: none;
     }
     &::placerholder {

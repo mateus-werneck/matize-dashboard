@@ -10,7 +10,7 @@ export const SearchBar = () => {
 
   return (
     <SearchBarContainer>
-      <SearchIcon color="disabled" />
+      <SearchIcon color="disabled" fontSize="small" />
       <MatizeForm
         formInputs={getFormInputs()}
         validationSchema={getValidationSchema()}
@@ -24,13 +24,15 @@ function getFormInputs(): MatizeFormInput[] {
   return [
     {
       name: 'searchBarInput',
-      type: 'search'
+      type: 'search',
+      placeHolder: 'Pesquisar',
+      styles: { width: '1080px' }
     }
   ];
 }
 
 function getValidationSchema(): ZodType<any, any, any> {
   return z.object({
-    searchBarInput: z.string().max(256, 'Digite um valor válido.')
+    searchBarInput: z.string().max(2, 'Digite um valor válido.')
   });
 }
