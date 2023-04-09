@@ -43,7 +43,7 @@ export const MatizeInput = ({
       placeholder={placeHolder ? placeHolder : ''}
       readOnly={readOnly ? readOnly : false}
       required={required ? required : true}
-      style={{ ...styles, marginBottom: hasErrors ? '0.3rem' : '0.8rem' }}
+      style={{marginBottom: hasErrors ? '0.3rem' : '0.8rem', ...styles }}
     />
   );
 
