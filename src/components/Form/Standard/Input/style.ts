@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 
 export const StyledMatizeInput = styled.input`
-  margin-bottom: ${(props) => (props['hasErrors'] ? '0.3rem' : '0.8rem')};
   width: 300px;
   height: 30px;
   font-size: 0.75rem;

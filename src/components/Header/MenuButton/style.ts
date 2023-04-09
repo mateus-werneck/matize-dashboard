@@ -7,5 +7,4 @@ export const StyledMenuIcon = styled(MenuIcon)`
   @media screen and (max-width: 540px) {
     display: none;
   }
-
 `;

@@ -61,7 +61,7 @@ function getFormInputs(
       />
       {errors[formInput.name] && (
         <StyledMatizeAlertInput key={formInput.name + '-warning'}>
-          {errors[formInput.name]['message']}
+          {String(errors[formInput.name]?.message)}
         </StyledMatizeAlertInput>
       )}
     </FormInputContainer>

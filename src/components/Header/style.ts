@@ -8,7 +8,6 @@ export const HeaderMainContainer = styled.div`
   background: white;
   transition: opacity 1s ease-out;
   width: 100%;
-
 `;
 
 export const HeaderLeftContainer = styled.div`
