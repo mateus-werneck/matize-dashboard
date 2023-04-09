@@ -11,6 +11,10 @@ export const LoginForm = () => {
 
   useEffect(() => {
     if (hasSession()) router.push('/')
+  }, [])
+
+  useEffect(() => {
+    if (hasSession()) router.push('/')
   }, [user])
 
   const onSubmit = (data: any) => {
