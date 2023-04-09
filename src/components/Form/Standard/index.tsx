@@ -36,7 +36,7 @@ export const MatizeForm = ({
         <MatizeButton
           type="submit"
           onClick={handleSubmit(onSubmit)}
-          style={{ marginTop: '1rem' }}
+          style={{ marginTop: '1.5rem' }}
         >
           {submitButton}
         </MatizeButton>

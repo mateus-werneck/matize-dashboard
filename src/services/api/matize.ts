@@ -18,3 +18,10 @@ matizeAPI.interceptors.request.use(
     return Promise.reject(error);
   }
 );
+
+matizeAPI.interceptors.response.use((onFulfilled) => {
+  return Promise.resolve(onFulfilled)
+}, (onRejected) => {
+  console.log('Falhou')
+  return Promise.resolve(onRejected)
+})

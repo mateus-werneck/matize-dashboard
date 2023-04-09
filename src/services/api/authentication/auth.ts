@@ -6,7 +6,7 @@ type AuthenticateData = {
   password: string;
 };
 
-export async function authenticate({email, password}: AuthenticateData) {
+export async function authenticate({ email, password }: AuthenticateData) {
   const response = await matizeAPI.post('/auth/login', undefined, {
     headers: {
       Authorization: basicToken(email, password)
@@ -32,6 +32,8 @@ export async function login(token: string) {
   });
 
   const user = response.data;
+
+  if (!user) return null;
 
   return {
     name: user.firstName,
