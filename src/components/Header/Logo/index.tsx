@@ -9,10 +9,10 @@ import React from 'react';
 
 interface LogoProps {
   children: React.ReactNode;
-  showText: boolean;
+  minimalSidebar: boolean;
 }
 
-export const Logo = ({ children, showText }: LogoProps) => {
+export const Logo = ({ children, minimalSidebar }: LogoProps) => {
   const LogoImage = () => {
     return (
       <LogoLink href={'/'} style={{ maxHeight: 64, marginBottom: '7px' }}>
@@ -22,7 +22,7 @@ export const Logo = ({ children, showText }: LogoProps) => {
           width={64}
           height={64}
         />
-        {showText && (
+        {!minimalSidebar && (
           <LogoNameContainer>
             <LogoName>Matize</LogoName>
           </LogoNameContainer>
@@ -32,7 +32,7 @@ export const Logo = ({ children, showText }: LogoProps) => {
   };
 
   return (
-    <HeaderLogoContainer style={{ maxWidth: showText ? '250px' : '140px' }}>
+    <HeaderLogoContainer style={{ maxWidth: !minimalSidebar ? '250px' : '140px' }}>
       <LogoImage />
       {children}
     </HeaderLogoContainer>

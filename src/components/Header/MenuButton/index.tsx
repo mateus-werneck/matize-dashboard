@@ -2,11 +2,11 @@ import { MatizeButton } from '@Components/Button';
 import { StyledMenuIcon } from './style';
 
 interface MenuButtonProps {
-  hideText: (value: any) => any;
+  setMinimalSidebar: (value: any) => any;
 }
-export const MenuButton = ({hideText}: MenuButtonProps) => {
+export const MenuButton = ({setMinimalSidebar}: MenuButtonProps) => {
   const onClick = (value: any) => {
-      hideText((previousValue: boolean) => !previousValue)
+      setMinimalSidebar((previousValue: boolean) => !previousValue)
   };
   return (
     <>

@@ -4,7 +4,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { HeaderNavBar, SideBarContainer } from './style';
 
 interface SideBarProps {
-  showText: boolean;
+  minimalSidebar: boolean;
 }
 
 export interface MenuAdminView {
@@ -15,19 +15,19 @@ export interface MenuAdminView {
   icon: string;
 }
 
-export const SideBar = ({ showText }: SideBarProps) => {
-  const { dashboard } = useDashboard(showText);
+export const SideBar = ({ minimalSidebar }: SideBarProps) => {
+  const { dashboard } = useDashboard(minimalSidebar);
 
   return (
-    <SideBarContainer style={{ maxWidth: showText ? '250px' : '90px' }}>
-      <HeaderNavBar style={{ alignItems: showText ? 'inherit' : 'center' }}>
+    <SideBarContainer style={{ maxWidth: !minimalSidebar ? '250px' : '90px' }}>
+      <HeaderNavBar style={{ alignItems: !minimalSidebar ? 'inherit' : 'center' }}>
         {dashboard}
       </HeaderNavBar>
     </SideBarContainer>
   );
 };
 
-function useDashboard(showText: boolean) {
+function useDashboard(minimalSidebar: boolean) {
   const [rawDashboard, setRawDashboard] = useState<MenuAdminView[]>([]);
   const [dashboard, setDashboard] = useState<JSX.Element[]>([]);
 
@@ -48,7 +48,7 @@ function useDashboard(showText: boolean) {
         <NavBarItem
           key={menu['name'] + '-' + menu['icon']}
           route={menu['route']}
-          name={showText ? menu['name'] : ''}
+          name={!minimalSidebar ? menu['name'] : ''}
           icon={menu['icon']}
         />
       ));
@@ -64,7 +64,7 @@ function useDashboard(showText: boolean) {
   }
 
   function getStandardDashboard() {
-    const name = showText ? 'Dashboard' : '';
+    const name = !minimalSidebar ? 'Dashboard' : '';
     const icon = 'HomeIcon';
     return [
       <NavBarItem key={name + '-' + icon} route="/" name={name} icon={icon} />
@@ -77,7 +77,7 @@ function useDashboard(showText: boolean) {
 
   useMemo(() => {
     appendDashboard();
-  }, [showText]);
+  }, [minimalSidebar]);
 
   return { dashboard };
 }

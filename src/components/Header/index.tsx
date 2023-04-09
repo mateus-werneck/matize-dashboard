@@ -2,21 +2,21 @@ import { Logo } from '@Components/Header/Logo';
 import { MenuButton } from '@Components/Header/MenuButton/index';
 import { SearchBar } from '@Components/Header/SearchBar';
 import { SideBar } from '@Components/Header/SideBar';
-import { useState } from 'react';
+import { useSidebar } from '@Contexts/SidebarContext';
 import { HeaderLeftContainer, HeaderMainContainer } from './style';
 
 export function Header() {
-  const [showSideBarText, setShowSiderBarText] = useState<boolean>(true);
+  const { minimalSidebar, setMinimalSidebar } = useSidebar();
 
   return (
     <HeaderMainContainer>
       <HeaderLeftContainer>
-        <Logo showText={showSideBarText}>
-          <MenuButton hideText={setShowSiderBarText} />
+        <Logo minimalSidebar={minimalSidebar}>
+          <MenuButton setMinimalSidebar={setMinimalSidebar} />
         </Logo>
         <SearchBar />
       </HeaderLeftContainer>
-      <SideBar showText={showSideBarText} />
+      <SideBar minimalSidebar={minimalSidebar} />
     </HeaderMainContainer>
   );
-};
+}

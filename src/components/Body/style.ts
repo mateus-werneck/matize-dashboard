@@ -5,7 +5,6 @@ export const MainPanel = styled.div`
   justify-content: center;
   position: relative;
   left: 250px;
-  width: calc(100vw - 250px);
   min-height: calc(100vh - 70px);
 
   @media screen and (max-width: 540px) {

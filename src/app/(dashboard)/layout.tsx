@@ -1,7 +1,8 @@
 'use client';
-import { MainPanel } from '@Components/Body/style';
+import { DashboardBody } from '@Components/Body/DashboardBody';
 import { Header } from '@Components/Header';
 import { useAuth } from '@Contexts/AuthContext';
+import { SidebarProvider, useSidebar } from '@Contexts/SidebarContext';
 import { useRouter } from 'next/navigation';
 import React, { useEffect } from 'react';
 
@@ -10,6 +11,8 @@ interface MainLayoutProps {
 }
 
 export default function MainLayout({ children }: MainLayoutProps) {
+  const { minimalSidebar } = useSidebar();
+
   const { hasSession } = useAuth();
   const router = useRouter();
 
@@ -18,9 +21,11 @@ export default function MainLayout({ children }: MainLayoutProps) {
   }, []);
 
   return (
-    <>
+    <SidebarProvider>
       <Header />
-      <MainPanel>{children}</MainPanel>
-    </>
+      <DashboardBody>
+        {children}
+      </DashboardBody>
+    </SidebarProvider>
   );
 }
