@@ -53,7 +53,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
     const { token, user } = await authenticate({ email, password });
 
     setCookie(undefined, authCookie, token, {
-      maxAge: 3600
+      maxAge: 86400
     });
     setUser(user);
   }
