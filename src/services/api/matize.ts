@@ -9,7 +9,8 @@ matizeAPI.interceptors.request.use(
   (config) => {
     const cookieStore = parseCookies();
     const token = cookieStore['matizeinternal.auth.token']
-    if (token) config.headers.set('Authorization', `Bearer ${token}`);
+    const route = config.url
+    if (token && route != '/auth/login') config.headers.set('Authorization', `Bearer ${token}`);
     return config;
   },
   (error) => {
