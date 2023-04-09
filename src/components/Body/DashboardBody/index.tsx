@@ -13,7 +13,7 @@ export function DashboardBody({ children }: DashboardBodyProps) {
     <MainPanel
       style={{
         width: minimalSidebar ? 'calc(100vw - 90px)' : 'calc(100vw - 250px)',
-        left: minimalSidebar ? '90px': '250px'
+        left: minimalSidebar ? '90px' : '250px'
       }}
     >
       {children}

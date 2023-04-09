@@ -1,9 +1,7 @@
-
 export default function Orders() {
-    return (
-      <>
-        <title>Pedidos</title>
-      </>
-    );
-  }
-  
+  return (
+    <>
+      <title>Pedidos</title>
+    </>
+  );
+}

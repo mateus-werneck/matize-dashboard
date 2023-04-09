@@ -1,6 +1,8 @@
-'use client'
+'use client';
 export default () => {
-    return <>
-    <h1>Footer</h1>
+  return (
+    <>
+      <h1>Footer</h1>
     </>
-}
+  );
+};

@@ -10,19 +10,18 @@ export const LoginForm = () => {
   const router = useRouter();
 
   useEffect(() => {
-    if (hasSession()) router.push('/')
-  }, [])
+    if (hasSession()) router.push('/');
+  }, []);
 
   useEffect(() => {
-    if (hasSession()) router.push('/')
-  }, [user])
+    if (hasSession()) router.push('/');
+  }, [user]);
 
   const onSubmit = (data: any) => {
     signIn({
       email: data.userEmail,
       password: data.userPassword
-    })
-    .catch((error) => router.push('/login'));
+    }).catch((error) => router.push('/login'));
   };
 
   return (

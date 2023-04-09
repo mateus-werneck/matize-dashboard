@@ -96,10 +96,8 @@ export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <AuthProvider>
       <html lang="en">
-      <GlobalStyle />
-        <MatizeBody>
-          {children}
-          </MatizeBody>
+        <GlobalStyle />
+        <MatizeBody>{children}</MatizeBody>
       </html>
     </AuthProvider>
   );

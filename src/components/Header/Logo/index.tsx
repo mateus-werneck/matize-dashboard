@@ -32,7 +32,9 @@ export const Logo = ({ children, minimalSidebar }: LogoProps) => {
   };
 
   return (
-    <HeaderLogoContainer style={{ maxWidth: !minimalSidebar ? '250px' : '140px' }}>
+    <HeaderLogoContainer
+      style={{ maxWidth: !minimalSidebar ? '250px' : '140px' }}
+    >
       <LogoImage />
       {children}
     </HeaderLogoContainer>

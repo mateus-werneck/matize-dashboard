@@ -39,7 +39,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
     const token = cookieStore[authCookie];
 
     if (!token) return;
-    
+
     const user = await login(token);
     setUser(user);
   }

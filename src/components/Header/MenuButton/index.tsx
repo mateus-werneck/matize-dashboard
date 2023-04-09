@@ -4,9 +4,9 @@ import { StyledMenuIcon } from './style';
 interface MenuButtonProps {
   setMinimalSidebar: (value: any) => any;
 }
-export const MenuButton = ({setMinimalSidebar}: MenuButtonProps) => {
+export const MenuButton = ({ setMinimalSidebar }: MenuButtonProps) => {
   const onClick = (value: any) => {
-      setMinimalSidebar((previousValue: boolean) => !previousValue)
+    setMinimalSidebar((previousValue: boolean) => !previousValue);
   };
   return (
     <>
@@ -14,9 +14,9 @@ export const MenuButton = ({setMinimalSidebar}: MenuButtonProps) => {
         onClick={onClick}
         variant="text"
         size="small"
-        style={{borderRadius: '0px', paddingBottom: '10px'}}
+        style={{ borderRadius: '0px', paddingBottom: '10px' }}
       >
-        <StyledMenuIcon fontSize="small"/>
+        <StyledMenuIcon fontSize="small" />
       </MatizeButton>
     </>
   );

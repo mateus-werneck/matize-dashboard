@@ -1,9 +1,7 @@
-
 export default function Products() {
-    return (
-      <>
-        <title>Produtos</title>
-      </>
-    );
-  }
-  
+  return (
+    <>
+      <title>Produtos</title>
+    </>
+  );
+}

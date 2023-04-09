@@ -26,7 +26,7 @@ export const MatizeButton = ({
   style,
   disabled
 }: ButtonProps) => {
-  const isDisabled = disabled == undefined ? false: disabled;
+  const isDisabled = disabled == undefined ? false : disabled;
 
   return (
     <>

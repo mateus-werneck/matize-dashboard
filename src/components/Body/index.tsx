@@ -13,9 +13,7 @@ export function MatizeBody({ children }: MatizeBodyProps) {
 
   return (
     <body>
-      <div style={mainPanelSyle}>
-        {children}
-      </div>
+      <div style={mainPanelSyle}>{children}</div>
     </body>
   );
 }
