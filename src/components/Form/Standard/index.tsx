@@ -26,7 +26,7 @@ export const MatizeForm = ({
   const {
     register,
     handleSubmit,
-    formState: { errors }
+    formState: { errors, isSubmitted }
   } = useForm<FormDataType>({ resolver: zodResolver(validationSchema) });
 
   return (
@@ -37,6 +37,7 @@ export const MatizeForm = ({
           type="submit"
           onClick={handleSubmit(onSubmit)}
           style={{ marginTop: '1.5rem', float: 'right'}}
+          disabled={isSubmitted}
         >
           {submitButton}
         </MatizeButton>

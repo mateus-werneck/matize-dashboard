@@ -10,7 +10,8 @@ interface ButtonProps {
   color?: 'primary' | 'secondary' | 'success' | 'error' | 'info' | 'warning';
   startIcon?: React.ReactNode;
   endIcon?: React.ReactNode;
-  style?: CSSProperties
+  style?: CSSProperties;
+  disabled?: boolean;
 }
 
 export const MatizeButton = ({
@@ -22,11 +23,15 @@ export const MatizeButton = ({
   color,
   startIcon,
   endIcon,
-  style
+  style,
+  disabled
 }: ButtonProps) => {
+  const isDisabled = disabled == undefined ? false: disabled;
+
   return (
     <>
       <StyledMatizeButton
+        disabled={isDisabled}
         variant={variant ? variant : 'contained'}
         size={size ? size : 'medium'}
         type={type ? type : 'button'}

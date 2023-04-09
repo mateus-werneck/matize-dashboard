@@ -15,7 +15,6 @@ export interface MenuAdminView {
   icon: string;
 }
 
-
 export const SideBar = ({ showText }: SideBarProps) => {
   const { dashboard } = useDashboard(showText);
 
@@ -38,27 +37,30 @@ function useDashboard(showText: boolean) {
   }
 
   async function treatDashboard() {
-    const standardDashboard = getStandardDashboard()
+    const standardDashboard = getStandardDashboard();
     let data = rawDashboard;
 
     if (!rawDashboard.length) data = await appendRawDashboard();
 
-    const newDashboard = data.map((menu) => (
-      <NavBarItem
-        key={menu['name'] + '-' + menu['icon']}
-        route={menu['route']}
-        name={showText ? menu['name'] : ''}
-        icon={menu['icon']}
-      />
-    ));
+    const newDashboard =
+      data &&
+      data.map((menu) => (
+        <NavBarItem
+          key={menu['name'] + '-' + menu['icon']}
+          route={menu['route']}
+          name={showText ? menu['name'] : ''}
+          icon={menu['icon']}
+        />
+      ));
 
-    return standardDashboard.concat(newDashboard);
+    return standardDashboard.concat(newDashboard ? newDashboard : []);
   }
 
   async function appendRawDashboard(): Promise<MenuAdminView[]> {
     const response = await matizeAPI.get('admin-dashboard');
-    setRawDashboard(response.data);
-    return response.data;
+    const menuAdmin = response.data;
+    setRawDashboard(menuAdmin);
+    return menuAdmin;
   }
 
   function getStandardDashboard() {
