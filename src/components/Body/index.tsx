@@ -1,43 +1,21 @@
-'use client';
-import Header from '@Components/Header';
-import { useAuth } from '@Contexts/AuthContext';
-import { usePathname, useRouter } from 'next/navigation';
-import React, { useEffect, useState } from 'react';
-import { GlobalBody, MainContainer, MainPanel } from './style';
+import React, { CSSProperties } from 'react';
 
 interface MatizeBodyProps {
   children: React.ReactNode;
 }
 
-export const MatizeBody = ({ children }: MatizeBodyProps) => {
-  const { hasSession } = useAuth();
-  const pathName = usePathname();
-  const router = useRouter();
-  const [showSideBarText, setShowSiderBarText] = useState<boolean>(true);
-
-  useEffect(() => {
-    if (!hasSession() && pathName != 'login') router.push('/login');
-  }, []);
+export function MatizeBody({ children }: MatizeBodyProps) {
+  const mainPanelSyle: CSSProperties = {
+    display: 'flex',
+    flexDirection: 'column',
+    minHeight: 'calc(100vh - 70px)'
+  };
 
   return (
-    <GlobalBody>
-      <MainContainer>
-        {hasSession() && (
-          <>
-            <Header
-              showSideBarText={showSideBarText}
-              setShowSiderBarText={setShowSiderBarText}
-            />
-          </>
-        )}
-        {pathName == '/login' && (
-          <>
-            <MainPanel style={{ left: showSideBarText ? '250px' : '90px' }}>
-              {children}
-            </MainPanel>
-          </>
-        )}
-      </MainContainer>
-    </GlobalBody>
+    <body>
+      <div style={mainPanelSyle}>
+        {children}
+      </div>
+    </body>
   );
-};
+}

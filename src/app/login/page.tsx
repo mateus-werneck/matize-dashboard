@@ -1,9 +1,11 @@
-import { LoginForm } from '@Forms/Login';
+'use client';
+import { LoginPage } from '@Components/Login';
 
 export default function Login() {
   return (
     <>
-      <LoginForm />
+      <title>Matize | Login</title>
+      <LoginPage />
     </>
   );
 }

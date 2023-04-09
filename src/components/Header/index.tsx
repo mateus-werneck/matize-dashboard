@@ -1,16 +1,12 @@
-'use client';
+import { Logo } from '@Components/Header/Logo';
 import { MenuButton } from '@Components/Header/MenuButton/index';
-import { SideBar } from '@Components/Header/SideBar/index';
-import { Logo } from './Logo';
-import { SearchBar } from './SearchBar';
+import { SearchBar } from '@Components/Header/SearchBar';
+import { SideBar } from '@Components/Header/SideBar';
+import { useState } from 'react';
 import { HeaderLeftContainer, HeaderMainContainer } from './style';
 
-interface HeaderProps {
-  showSideBarText: boolean;
-  setShowSiderBarText: (value: any) => void;
-}
-export default ({ showSideBarText, setShowSiderBarText }: HeaderProps) => {
-  // const [showSideBarText, setShowSiderBarText] = useState<boolean>(true);
+export function Header() {
+  const [showSideBarText, setShowSiderBarText] = useState<boolean>(true);
 
   return (
     <HeaderMainContainer>

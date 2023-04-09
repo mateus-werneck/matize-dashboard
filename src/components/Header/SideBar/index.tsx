@@ -1,11 +1,21 @@
 import { matizeAPI } from '@API/matize';
+import { NavBarItem } from '@Components/Header/SideBar/NavItem';
 import { useEffect, useMemo, useState } from 'react';
-import { NavBarItem } from './NavItem';
 import { HeaderNavBar, SideBarContainer } from './style';
 
 interface SideBarProps {
   showText: boolean;
 }
+
+export interface MenuAdminView {
+  matizeId: string;
+  parent?: string;
+  name: string;
+  route: string;
+  icon: string;
+}
+
+
 export const SideBar = ({ showText }: SideBarProps) => {
   const { dashboard } = useDashboard(showText);
 
@@ -19,7 +29,7 @@ export const SideBar = ({ showText }: SideBarProps) => {
 };
 
 function useDashboard(showText: boolean) {
-  const [rawDashboard, setRawDashboard] = useState<any[]>([]);
+  const [rawDashboard, setRawDashboard] = useState<MenuAdminView[]>([]);
   const [dashboard, setDashboard] = useState<JSX.Element[]>([]);
 
   async function appendDashboard() {
@@ -45,7 +55,7 @@ function useDashboard(showText: boolean) {
     return standardDashboard.concat(newDashboard);
   }
 
-  async function appendRawDashboard() {
+  async function appendRawDashboard(): Promise<MenuAdminView[]> {
     const response = await matizeAPI.get('admin-dashboard');
     setRawDashboard(response.data);
     return response.data;

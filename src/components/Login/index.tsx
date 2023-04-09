@@ -1,10 +1,14 @@
-'use client';
-import { LoginContainer } from './style';
+import { LoginForm } from '@Components/Form/Login';
+import { FormModal, LoginContainer } from './style';
 
-export default () => {
+export function LoginPage() {
   return (
     <>
-      <LoginContainer />
+      <LoginContainer>
+        <FormModal>
+          <LoginForm />
+        </FormModal>
+      </LoginContainer>
     </>
   );
-};
+}

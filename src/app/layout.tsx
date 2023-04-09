@@ -94,11 +94,13 @@ interface RootLayoutProps {
 
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
-    <html lang="en">
-      <AuthProvider>
-        <GlobalStyle />
-        <MatizeBody>{children}</MatizeBody>
-      </AuthProvider>
-    </html>
+    <AuthProvider>
+      <html lang="en">
+      <GlobalStyle />
+        <MatizeBody>
+          {children}
+          </MatizeBody>
+      </html>
+    </AuthProvider>
   );
 }

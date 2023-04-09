@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const StyledMatizeInput = styled.input`
-  margin-bottom: ${(props) => (props['hasErrors'] ? '0.3rem' : 0)};
+  margin-bottom: ${(props) => (props['hasErrors'] ? '0.3rem' : '0.8rem')};
   width: 300px;
   height: 30px;
   font-size: 0.75rem;
@@ -20,4 +20,5 @@ export const StyledMatizeAlertInput = styled.span`
   text-indent: 0.4rem;
   font-size: 0.5rem;
   color: red;
+  margin-bottom: 1rem;
 `;
