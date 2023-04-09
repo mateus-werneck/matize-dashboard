@@ -1,5 +1,5 @@
 'use client';
-import { useAuth } from '@/contexts/AuthContext';
+import { useAuth } from '@Contexts/AuthContext';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 import { ZodType, z } from 'zod';

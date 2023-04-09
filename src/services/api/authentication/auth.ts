@@ -1,18 +1,15 @@
 import { matizeAPI } from '@API/matize';
+import { basicToken, bearerToken } from '@Utils/String';
 
 type AuthenticateData = {
   email: string;
   password: string;
 };
 
-export async function authenticate(data: AuthenticateData) {
-  const basicAuth = Buffer.from(`${data.email}:${data.password}`).toString(
-    'base64'
-  );
-
+export async function authenticate({email, password}: AuthenticateData) {
   const response = await matizeAPI.post('/auth/login', undefined, {
     headers: {
-      Authorization: `Basic ${basicAuth}`
+      Authorization: basicToken(email, password)
     }
   });
 
@@ -30,7 +27,7 @@ export async function authenticate(data: AuthenticateData) {
 export async function login(token: string) {
   const response = await matizeAPI.get('/user/profile', {
     headers: {
-      Authorization: `Bearer ${token}`
+      Authorization: bearerToken(token)
     }
   });
 

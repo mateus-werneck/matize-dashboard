@@ -1,3 +1,4 @@
+import { bearerToken } from '@Utils/String';
 import axios from 'axios';
 import { parseCookies } from 'nookies';
 
@@ -10,7 +11,7 @@ matizeAPI.interceptors.request.use(
     const cookieStore = parseCookies();
     const token = cookieStore['matizeinternal.auth.token']
     const route = config.url
-    if (token && route != '/auth/login') config.headers.set('Authorization', `Bearer ${token}`);
+    if (token && route != '/auth/login') config.headers.set('Authorization', bearerToken(token));
     return config;
   },
   (error) => {
