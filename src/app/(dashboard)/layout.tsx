@@ -18,9 +18,9 @@ export default function MainLayout({ children }: MainLayoutProps) {
   }, []);
 
   return (
-    <MainPanel>
+    <>
       <Header />
-      {children}
-    </MainPanel>
+      <MainPanel>{children}</MainPanel>
+    </>
   );
 }
