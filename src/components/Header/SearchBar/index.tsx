@@ -5,7 +5,6 @@ import { SearchBarContainer } from './style';
 
 export const SearchBar = () => {
   const onSubmit = (data: any) => {
-    console.log('ola');
     console.log(data);
   };
 

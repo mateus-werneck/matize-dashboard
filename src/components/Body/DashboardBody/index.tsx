@@ -9,8 +9,6 @@ interface DashboardBodyProps {
 export function DashboardBody({ children }: DashboardBodyProps) {
   const { minimalSidebar } = useSidebar();
 
-  console.log(minimalSidebar)
-
   return (
     <MainPanel
       style={{
