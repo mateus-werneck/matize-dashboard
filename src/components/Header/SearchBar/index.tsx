@@ -27,7 +27,7 @@ function getFormInputs(): MatizeFormInput[] {
       name: 'searchBarInput',
       type: 'search',
       placeHolder: 'Pesquisar',
-      styles: { width: '1080px', border: 'none' }
+      styles: { width: '1080px', border: 'none', marginBottom: '0' }
     }
   ];
 }
