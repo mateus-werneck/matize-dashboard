@@ -1,14 +1,14 @@
 import { MatizeButton } from '@Components/Button';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm } from 'react-hook-form';
+import { FieldErrors, UseFormRegister, useForm } from 'react-hook-form';
 import { ZodType, z } from 'zod';
 import { MatizeInput, MatizeInputProps } from './Input';
 import { StyledMatizeAlertInput } from './Input/style';
-import { FormInputContainer } from './style';
+import { FormInputContainer, StyledForm } from './style';
 
 interface MatizeFormProps {
   formInputs: MatizeFormInput[];
-  validationSchema: ZodType<any, any, any>;
+  validationSchema: ZodType;
   onSubmit: (data: any) => void;
   submitButton?: string;
 }
@@ -30,22 +30,8 @@ export const MatizeForm = ({
   } = useForm<FormDataType>({ resolver: zodResolver(validationSchema) });
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      {formInputs.map((formInput) => (
-        <FormInputContainer key={formInput.name + '-div'}>
-          <MatizeInput
-            {...formInput}
-            register={register}
-            key={formInput.name}
-            hasErrors={errors[formInput.name] ? true : false}
-          />
-          {errors[formInput.name] && (
-            <StyledMatizeAlertInput key={formInput.name + '-warning'}>
-              {errors[formInput.name]['message']}
-            </StyledMatizeAlertInput>
-          )}
-        </FormInputContainer>
-      ))}
+    <StyledForm onSubmit={handleSubmit(onSubmit)}>
+      {getFormInputs(formInputs, register, errors)}
       {submitButton && (
         <MatizeButton
           type="submit"
@@ -55,6 +41,28 @@ export const MatizeForm = ({
           {submitButton}
         </MatizeButton>
       )}
-    </form>
+    </StyledForm>
   );
 };
+
+function getFormInputs(
+  formInputs: MatizeFormInput[],
+  register: UseFormRegister<any>,
+  errors: FieldErrors<any>
+): JSX.Element[] {
+  return formInputs.map((formInput) => (
+    <FormInputContainer key={formInput.name + '-div'}>
+      <MatizeInput
+        {...formInput}
+        register={register}
+        key={formInput.name}
+        hasErrors={errors[formInput.name] ? true : false}
+      />
+      {errors[formInput.name] && (
+        <StyledMatizeAlertInput key={formInput.name + '-warning'}>
+          {errors[formInput.name]['message']}
+        </StyledMatizeAlertInput>
+      )}
+    </FormInputContainer>
+  ));
+}

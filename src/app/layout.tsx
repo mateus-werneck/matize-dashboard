@@ -1,5 +1,7 @@
 import { MatizeBody } from '@Components/Body';
+import { AuthProvider } from '@Contexts/AuthContext';
 import { GlobalStyle } from '@Styles/global';
+import React from 'react';
 
 export const metadata = {
   title: 'Matize',
@@ -86,17 +88,17 @@ export const metadata = {
   ]
 };
 
-export default function RootLayout({
-  children
-}: {
+interface RootLayoutProps {
   children: React.ReactNode;
-}) {
+}
+
+export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="en">
-      <GlobalStyle />
-      <MatizeBody>
-        {children}
-      </MatizeBody>
+      <AuthProvider>
+        <GlobalStyle />
+        <MatizeBody>{children}</MatizeBody>
+      </AuthProvider>
     </html>
   );
 }

@@ -1,10 +1,24 @@
-'use client'
+'use client';
+import { useAuth } from '@/contexts/AuthContext';
+import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
 import { ZodType, z } from 'zod';
 import { MatizeForm, MatizeFormInput } from '../Standard';
 
 export const LoginForm = () => {
+  const { user, hasSession, signIn } = useAuth();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (hasSession()) router.push('/')
+  }, [user])
+
   const onSubmit = (data: any) => {
-    console.log(data);
+    signIn({
+      email: data.userEmail,
+      password: data.userPassword
+    })
+    .catch((error) => router.push('/login'));
   };
 
   return (
@@ -34,7 +48,7 @@ function getFormInputs(): MatizeFormInput[] {
   ];
 }
 
-function getValidationSchema(): ZodType<any, any, any> {
+function getValidationSchema(): ZodType {
   return z.object({
     userEmail: z.string().email('Digite um email válido.'),
     userPassword: z

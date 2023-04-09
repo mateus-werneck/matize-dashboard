@@ -32,7 +32,7 @@ function getFormInputs(): MatizeFormInput[] {
   ];
 }
 
-function getValidationSchema(): ZodType<any, any, any> {
+function getValidationSchema(): ZodType {
   return z.object({
     searchBarInput: z.string()
   });
