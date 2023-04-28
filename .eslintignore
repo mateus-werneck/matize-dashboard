@@ -1,9 +1,4 @@
 /.*js
 node_modules
-tmp
-dist
-jest.config.ts
-File.ts
-Document.ts
-logger.ts
-db.logger.ts
+public
+.next
