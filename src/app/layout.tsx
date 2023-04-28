@@ -4,7 +4,7 @@ import { GlobalStyle } from '@Styles/global';
 import { Metadata } from 'next';
 import React from 'react';
 
-export const metadata: Metadata= {
+export const metadata: Metadata = {
   title: 'Matize',
   viewport: {
     initialScale: 1,
