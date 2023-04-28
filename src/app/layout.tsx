@@ -88,11 +88,11 @@ export const metadata = {
   ]
 };
 
-interface RootLayoutProps {
+interface IRootLayout {
   children: React.ReactNode;
 }
 
-export default function RootLayout({ children }: RootLayoutProps) {
+export default function RootLayout({ children }: IRootLayout) {
   return (
     <AuthProvider>
       <html lang="en">

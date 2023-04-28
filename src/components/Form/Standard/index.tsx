@@ -2,25 +2,25 @@ import { MatizeButton } from '@Components/Button';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { FieldErrors, UseFormRegister, useForm } from 'react-hook-form';
 import { ZodType, z } from 'zod';
-import { MatizeInput, MatizeInputProps } from './Input';
+import { IMatizeInput, MatizeInput } from './Input';
 import { StyledMatizeAlertInput } from './Input/style';
 import { FormInputContainer, StyledForm } from './style';
 
-interface MatizeFormProps {
+interface IMatizeForm {
   formInputs: MatizeFormInput[];
   validationSchema: ZodType;
   onSubmit: (data: any) => void;
   submitButton?: string;
 }
 
-export type MatizeFormInput = Omit<MatizeInputProps, 'register' | 'hasErrors'>;
+export type MatizeFormInput = Omit<IMatizeInput, 'register' | 'hasErrors'>;
 
 export const MatizeForm = ({
   formInputs,
   validationSchema,
   onSubmit,
   submitButton
-}: MatizeFormProps) => {
+}: IMatizeForm) => {
   type FormDataType = z.infer<typeof validationSchema>;
 
   const {

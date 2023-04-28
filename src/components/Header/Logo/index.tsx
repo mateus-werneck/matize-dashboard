@@ -7,12 +7,12 @@ import {
 import Image from 'next/image';
 import React from 'react';
 
-interface LogoProps {
+interface IMatizeLogo {
   children: React.ReactNode;
   minimalSidebar: boolean;
 }
 
-export const Logo = ({ children, minimalSidebar }: LogoProps) => {
+export const Logo = ({ children, minimalSidebar }: IMatizeLogo) => {
   const LogoImage = () => {
     return (
       <LogoLink href={'/'} style={{ maxHeight: 64, marginBottom: '7px' }}>

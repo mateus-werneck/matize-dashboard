@@ -2,7 +2,7 @@ import { CSSProperties } from 'react';
 import { FieldValues, UseFormRegister } from 'react-hook-form';
 import { StyledMatizeInput, StyledMatizeLabel } from './style';
 
-export interface MatizeInputProps {
+export interface IMatizeInput {
   name: string;
   label?: string;
   placeHolder?: string;
@@ -35,7 +35,7 @@ export const MatizeInput = ({
   required,
   hasErrors,
   register
-}: MatizeInputProps) => {
+}: IMatizeInput) => {
   const Input = (
     <StyledMatizeInput
       {...register(name)}

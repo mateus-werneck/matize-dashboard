@@ -1,10 +1,10 @@
 import React, { CSSProperties } from 'react';
 
-interface MatizeBodyProps {
+interface IMatizeBody {
   children: React.ReactNode;
 }
 
-export function MatizeBody({ children }: MatizeBodyProps) {
+export function MatizeBody({ children }: IMatizeBody) {
   const mainPanelSyle: CSSProperties = {
     display: 'flex',
     flexDirection: 'column',

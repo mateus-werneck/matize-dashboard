@@ -1,10 +1,18 @@
 import styled from 'styled-components';
 
-export const MainPanel = styled.div`
+interface IMainPainel {
+  customStyle: {
+    width: string;
+    left: string;
+  };
+}
+
+export const MainPanel = styled.div<IMainPainel>`
   display: flex;
+  width: ${props => props.customStyle.width};
+  left: ${props => props.customStyle.left};
   justify-content: center;
   position: relative;
-  left: 250px;
   min-height: calc(100vh - 70px);
 
   @media screen and (max-width: 540px) {

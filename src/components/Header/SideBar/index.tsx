@@ -3,11 +3,11 @@ import { NavBarItem } from '@Components/Header/SideBar/NavItem';
 import { useEffect, useMemo, useState } from 'react';
 import { HeaderNavBar, SideBarContainer } from './style';
 
-interface SideBarProps {
+interface ISideBar {
   minimalSidebar: boolean;
 }
 
-export interface MenuAdminView {
+export type MenuAdminView = {
   matizeId: string;
   parent?: string;
   name: string;
@@ -15,7 +15,7 @@ export interface MenuAdminView {
   icon: string;
 }
 
-export const SideBar = ({ minimalSidebar }: SideBarProps) => {
+export const SideBar = ({ minimalSidebar }: ISideBar) => {
   const { dashboard } = useDashboard(minimalSidebar);
 
   return (

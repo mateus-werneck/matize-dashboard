@@ -20,13 +20,13 @@ type User = {
   name: string;
 };
 
-interface AuthProviderProps {
+interface IAuthProvider {
   children: React.ReactNode;
 }
 
 export const AuthContext = createContext({} as AuthContextProps);
 
-export function AuthProvider({ children }: AuthProviderProps) {
+export function AuthProvider({ children }: IAuthProvider) {
   const authCookie = 'matizeinternal.auth.token';
   const [user, setUser] = useState<User | null>(null);
 

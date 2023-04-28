@@ -1,10 +1,10 @@
 import { MatizeButton } from '@Components/Button';
 import { StyledMenuIcon } from './style';
 
-interface MenuButtonProps {
+interface IMenuButton {
   setMinimalSidebar: (value: any) => any;
 }
-export const MenuButton = ({ setMinimalSidebar }: MenuButtonProps) => {
+export const MenuButton = ({ setMinimalSidebar }: IMenuButton) => {
   const onClick = (value: any) => {
     setMinimalSidebar((previousValue: boolean) => !previousValue);
   };

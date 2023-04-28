@@ -6,13 +6,13 @@ type SideBarContextProps = {
   setMinimalSidebar: (value: boolean) => void;
 };
 
-interface SidebarProviderProps {
+interface ISidebarProvider {
   children: React.ReactNode;
 }
 
 export const SideBarContext = createContext({} as SideBarContextProps);
 
-export function SidebarProvider({ children }: SidebarProviderProps) {
+export function SidebarProvider({ children }: ISidebarProvider) {
   const [minimalSidebar, setMinimalSidebar] = useState<boolean>(false);
 
   return (

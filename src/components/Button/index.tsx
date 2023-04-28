@@ -1,7 +1,7 @@
 import { CSSProperties } from 'react';
 import { StyledMatizeButton } from './style';
 
-interface ButtonProps {
+interface IMatizeButton {
   onClick: (value: any) => void;
   children: React.ReactNode;
   variant?: 'text' | 'contained' | 'outlined';
@@ -25,7 +25,7 @@ export const MatizeButton = ({
   endIcon,
   style,
   disabled
-}: ButtonProps) => {
+}: IMatizeButton) => {
   const isDisabled = disabled == undefined ? false : disabled;
 
   return (

@@ -1,16 +1,16 @@
 'use client';
-import { DashboardBody } from '@Components/Body/DashboardBody';
+import { Dashboard } from '@Components/Body/Dashboard';
 import { Header } from '@Components/Header';
 import { useAuth } from '@Contexts/AuthContext';
 import { SidebarProvider } from '@Contexts/SidebarContext';
 import { useRouter } from 'next/navigation';
 import React, { useEffect } from 'react';
 
-interface MainLayoutProps {
+interface IMainLayout {
   children: React.ReactNode;
 }
 
-export default function MainLayout({ children }: MainLayoutProps) {
+export default function MainLayout({ children }: IMainLayout) {
   const { hasSession } = useAuth();
   const router = useRouter();
 
@@ -21,7 +21,7 @@ export default function MainLayout({ children }: MainLayoutProps) {
   return (
     <SidebarProvider>
       <Header />
-      <DashboardBody>{children}</DashboardBody>
+      <Dashboard>{children}</Dashboard>
     </SidebarProvider>
   );
 }

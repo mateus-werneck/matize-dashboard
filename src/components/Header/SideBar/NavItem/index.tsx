@@ -6,13 +6,13 @@ import WidgetsIcon from '@mui/icons-material/Widgets';
 import React from 'react';
 import { NavBarLine, NavBarLink, NavBarLinkLabel } from './style';
 
-interface NavBarItemProps {
+interface INavBarItem {
   route: string;
   name: string;
   icon?: string;
 }
 
-export const NavBarItem = ({ route, name, icon }: NavBarItemProps) => {
+export const NavBarItem = ({ route, name, icon }: INavBarItem) => {
   return (
     <NavBarLine>
       <NavBarLink href={route} aria-label={name}>
