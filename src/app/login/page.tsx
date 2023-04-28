@@ -4,7 +4,7 @@ import { LoginPage } from '@Components/Login';
 export default function Login() {
   return (
     <>
-      <title>Matize | Login</title>
+      <title>Login</title>
       <LoginPage />
     </>
   );
