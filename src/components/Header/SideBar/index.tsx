@@ -1,5 +1,6 @@
 import { matizeAPI } from '@API/matize';
-import { NavBarItem } from '@Components/Header/SideBar/NavItem';
+import { INavBarItem, NavBarItem } from '@Components/Header/SideBar/NavItem';
+import { User, useAuth } from '@Contexts/AuthContext';
 import { useEffect, useMemo, useState } from 'react';
 import { HeaderNavBar, SideBarContainer } from './style';
 
@@ -13,15 +14,18 @@ export type MenuAdminView = {
   name: string;
   route: string;
   icon: string;
-}
+};
 
 export const SideBar = ({ minimalSidebar }: ISideBar) => {
-  const { dashboard } = useDashboard(minimalSidebar);
+  const { user } = useAuth();
+  const { dashboard } = useDashboard(minimalSidebar, user);
 
   return (
-    <SideBarContainer style={{ maxWidth: !minimalSidebar ? '250px' : '90px' }}>
+    <SideBarContainer
+      customStyle={{ maxWidth: !minimalSidebar ? '250px' : '90px' }}
+    >
       <HeaderNavBar
-        style={{ alignItems: !minimalSidebar ? 'inherit' : 'center' }}
+        customStyle={{ alignItems: !minimalSidebar ? 'inherit' : 'center' }}
       >
         {dashboard}
       </HeaderNavBar>
@@ -29,7 +33,7 @@ export const SideBar = ({ minimalSidebar }: ISideBar) => {
   );
 };
 
-function useDashboard(minimalSidebar: boolean) {
+function useDashboard(minimalSidebar: boolean, user: User | null) {
   const [rawDashboard, setRawDashboard] = useState<MenuAdminView[]>([]);
   const [dashboard, setDashboard] = useState<JSX.Element[]>([]);
 
@@ -66,10 +70,22 @@ function useDashboard(minimalSidebar: boolean) {
   }
 
   function getStandardDashboard() {
-    const name = !minimalSidebar ? 'Dashboard' : '';
-    const icon = 'HomeIcon';
+    const userItem: INavBarItem = {
+      route: '/conta',
+      name: !minimalSidebar ? (user ? user.fullName : '') : '',
+      icon: 'AccountCircleIcon',
+      iconPosition: 'left'
+    };
+
+    const homeItem: INavBarItem = {
+      route: '/',
+      name: !minimalSidebar ? 'Dashboard' : '',
+      icon: 'HomeIcon'
+    };
+
     return [
-      <NavBarItem key={name + '-' + icon} route="/" name={name} icon={icon} />
+      <NavBarItem key={userItem.name + '-' + userItem.icon} {...userItem} />,
+      <NavBarItem key={homeItem.name + '-' + homeItem.icon} {...homeItem} />
     ];
   }
 

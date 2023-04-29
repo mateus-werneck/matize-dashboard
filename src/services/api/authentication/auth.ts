@@ -19,6 +19,7 @@ export async function authenticate({ email, password }: AuthenticateData) {
     token: access_token,
     user: {
       name: user.firstName,
+      fullName: user.firstName + ' ' + user.lastName,
       email: user.email
     }
   };
@@ -37,6 +38,7 @@ export async function login(token: string) {
 
   return {
     name: user.firstName,
+    fullName: user.firstName + ' ' + user.lastName,
     email: user.email
   };
 }

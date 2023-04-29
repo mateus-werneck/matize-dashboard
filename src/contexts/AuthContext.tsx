@@ -15,9 +15,10 @@ type SignInData = {
   password: string;
 };
 
-type User = {
+export type User = {
   email: string;
   name: string;
+  fullName: string;
 };
 
 interface IAuthProvider {
