@@ -16,9 +16,14 @@ type SignInData = {
 };
 
 export type User = {
-  email: string;
-  name: string;
+  matizeId: string;
+  firstName: string;
+  lastName: string;
   fullName: string;
+  email: string;
+  phoneNumber: string;
+  iat: number;
+  exp: number;
 };
 
 interface IAuthProvider {
@@ -47,9 +52,10 @@ export function AuthProvider({ children }: IAuthProvider) {
 
   async function signIn({ email, password }: SignInData) {
     const { token, user } = await authenticate({ email, password });
+    const expires = user ? user.exp : Date.now();
 
     setCookie(undefined, authCookie, token, {
-      maxAge: 86400
+      expires: new Date(expires)
     });
     setUser(user);
   }

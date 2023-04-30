@@ -1,27 +1,33 @@
 import { matizeAPI } from '@API/matize';
+import { User } from '@Contexts/AuthContext';
 import { basicToken, bearerToken } from '@Utils/String';
+import jwt_decode from 'jwt-decode';
 
 type AuthenticateData = {
   email: string;
   password: string;
 };
 
-export async function authenticate({ email, password }: AuthenticateData) {
-  const response = await matizeAPI.post('/auth/login', undefined, {
+export type UserAuthenticated = {
+  token: string;
+  user: User | null;
+}
+
+export async function authenticate({ email, password }: AuthenticateData): Promise<UserAuthenticated> {
+  const response = await matizeAPI.post('/token', undefined, {
     headers: {
       Authorization: basicToken(email, password)
     }
   });
 
-  const { access_token, user } = response.data;
+  const { access_token } = response.data;
+  const user = jwt_decode(access_token) as User;
+
+  console.log(user)
 
   return {
     token: access_token,
-    user: {
-      name: user.firstName,
-      fullName: user.firstName + ' ' + user.lastName,
-      email: user.email
-    }
+    user: user ?? null
   };
 }
 
@@ -36,9 +42,5 @@ export async function login(token: string) {
 
   if (!user) return null;
 
-  return {
-    name: user.firstName,
-    fullName: user.firstName + ' ' + user.lastName,
-    email: user.email
-  };
+  return user as User;
 }
