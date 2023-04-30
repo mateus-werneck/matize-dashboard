@@ -1,6 +1,6 @@
 import { MatizeButton } from '@Components/Button';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { FieldErrors, UseFormRegister, useForm } from 'react-hook-form';
+import { FieldErrors, UseFormRegister, UseFormReturn, useForm } from 'react-hook-form';
 import { ZodType, z } from 'zod';
 import { IMatizeInput, MatizeInput } from './Input';
 import { StyledMatizeAlertInput } from './Input/style';
@@ -9,7 +9,7 @@ import { FormInputContainer, StyledForm } from './style';
 interface IMatizeForm {
   formInputs: MatizeFormInput[];
   validationSchema: ZodType;
-  onSubmit: (data: any) => void;
+  onSubmit: (data: any, formContext: UseFormReturn<any>) => void;
   submitButton?: string;
 }
 
@@ -23,19 +23,25 @@ export const MatizeForm = ({
 }: IMatizeForm) => {
   type FormDataType = z.infer<typeof validationSchema>;
 
+  const formContext = useForm<FormDataType>({ resolver: zodResolver(validationSchema) });
+  
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitted }
-  } = useForm<FormDataType>({ resolver: zodResolver(validationSchema) });
+  } = formContext
+
+  function onSubmitFunction(data: any) {
+    onSubmit(data, formContext)
+  }
 
   return (
-    <StyledForm onSubmit={handleSubmit(onSubmit)}>
+    <StyledForm onSubmit={handleSubmit(onSubmitFunction)}>
       {getFormInputs(formInputs, register, errors)}
       {submitButton && (
         <MatizeButton
           type="submit"
-          onClick={handleSubmit(onSubmit)}
+          onClick={handleSubmit(onSubmitFunction)}
           style={{ marginTop: '1.5rem', float: 'right' }}
           disabled={isSubmitted}
         >

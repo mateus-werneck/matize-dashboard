@@ -23,10 +23,10 @@ export async function authenticate({ email, password }: AuthenticateData): Promi
   const { access_token } = response.data;
   const user = jwt_decode(access_token) as User;
 
-  console.log(user)
+  const isAdmin = user?.isAdmin === true;
 
   return {
-    token: access_token,
+    token: isAdmin ? access_token : null,
     user: user ?? null
   };
 }

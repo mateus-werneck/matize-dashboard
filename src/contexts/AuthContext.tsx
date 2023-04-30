@@ -1,5 +1,6 @@
 'use client';
 import { authenticate, login } from '@API/authentication/auth';
+import { InvalidCredentialsError } from '@Errors/login/invalidCredentials';
 import { destroyCookie, parseCookies, setCookie } from 'nookies';
 import React, { createContext, useContext, useEffect, useState } from 'react';
 
@@ -22,6 +23,7 @@ export type User = {
   fullName: string;
   email: string;
   phoneNumber: string;
+  isAdmin: boolean;
   iat: number;
   exp: number;
 };
@@ -52,10 +54,13 @@ export function AuthProvider({ children }: IAuthProvider) {
 
   async function signIn({ email, password }: SignInData) {
     const { token, user } = await authenticate({ email, password });
-    const expires = user ? user.exp : Date.now();
+
+    if (!token) {
+      throw new InvalidCredentialsError();
+    }
 
     setCookie(undefined, authCookie, token, {
-      expires: new Date(expires)
+      maxAge: 86400
     });
     setUser(user);
   }

@@ -27,6 +27,7 @@
       "@API/*": ["./src/services/api/*"],
       "@Components/*": ["./src/components/*"],
       "@Contexts/*": ["./src/contexts/*"],
+      "@Errors/*": ["./src/errors/*"],
       "@Forms/*": ["./src/components/Form/*"],
       "@Styles/*": ["./src/styles/*"],
       "@Utils/*": ["./src/utils/*"],

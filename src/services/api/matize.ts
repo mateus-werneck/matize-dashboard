@@ -11,7 +11,7 @@ matizeAPI.interceptors.request.use(
     const cookieStore = parseCookies();
     const token = cookieStore['matizeinternal.auth.token'];
     const route = config.url;
-    if (token && route != '/auth/login')
+    if (token && route != '/token')
       config.headers.set('Authorization', bearerToken(token));
     return config;
   },
@@ -25,7 +25,6 @@ matizeAPI.interceptors.response.use(
     return Promise.resolve(onFulfilled);
   },
   (onRejected) => {
-    console.log('Falhou');
     return Promise.resolve(onRejected);
   }
 );

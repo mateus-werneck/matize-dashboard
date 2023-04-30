@@ -2,6 +2,7 @@
 import { useAuth } from '@Contexts/AuthContext';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
+import { UseFormReturn } from 'react-hook-form';
 import { ZodType, z } from 'zod';
 import { MatizeForm, MatizeFormInput } from '../Standard';
 
@@ -17,11 +18,17 @@ export const LoginForm = () => {
     if (hasSession()) router.push('/');
   }, [user]);
 
-  const onSubmit = (data: any) => {
+  const onSubmit = (data: any, formContext: UseFormReturn<any>) => {
     signIn({
       email: data.userEmail,
       password: data.userPassword
-    }).catch((error) => router.push('/login'));
+    }).catch((error) => {
+        formContext.setError('userPassword', {
+          type: 'manual',
+          message: 'Email ou senha informado inválidos.'
+        });
+        formContext.reset(data, {keepErrors: true});
+    });
   };
 
   return (
