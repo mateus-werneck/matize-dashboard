@@ -29,7 +29,9 @@
       "@Contexts/*": ["./src/contexts/*"],
       "@Errors/*": ["./src/errors/*"],
       "@Forms/*": ["./src/components/Form/*"],
+      "@Lib/*": ["./src/lib/*"],
       "@Styles/*": ["./src/styles/*"],
+      "@Types/*": ["./src/types/*"],
       "@Utils/*": ["./src/utils/*"],
     }
   },

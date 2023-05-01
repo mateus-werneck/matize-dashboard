@@ -17,7 +17,7 @@ export const Logo = ({ children, minimalSidebar }: IMatizeLogo) => {
     return (
       <LogoLink href={'/'} style={{ maxHeight: 64, marginBottom: '7px' }}>
         <Image
-          src={'/android-icon-192x192-removebg.png'}
+          src={'/images/android-icon-192x192-removebg.png'}
           alt="matize-logo-header"
           width={64}
           height={64}

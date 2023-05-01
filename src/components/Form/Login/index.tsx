@@ -1,34 +1,27 @@
 'use client';
 import { useAuth } from '@Contexts/AuthContext';
 import { useRouter } from 'next/navigation';
-import { useEffect } from 'react';
 import { UseFormReturn } from 'react-hook-form';
 import { ZodType, z } from 'zod';
 import { MatizeForm, MatizeFormInput } from '../Standard';
 
 export const LoginForm = () => {
-  const { user, hasSession, signIn } = useAuth();
+  const { signIn } = useAuth();
   const router = useRouter();
-
-  useEffect(() => {
-    if (hasSession()) router.push('/');
-  }, []);
-
-  useEffect(() => {
-    if (hasSession()) router.push('/');
-  }, [user]);
 
   const onSubmit = (data: any, formContext: UseFormReturn<any>) => {
     signIn({
       email: data.userEmail,
       password: data.userPassword
-    }).catch((error) => {
+    })
+      .then(() => router.push('/'))
+      .catch((error) => {
         formContext.setError('userPassword', {
           type: 'manual',
           message: 'Email ou senha informado inválidos.'
         });
-        formContext.reset(data, {keepErrors: true});
-    });
+        formContext.reset(data, { keepErrors: true });
+      });
   };
 
   return (
