@@ -7,7 +7,7 @@ import "server-only";
 
 export async function withSession() {
     const cookieStore = cookies();
-    const token = cookieStore.get(String(process.env.AUTH_COOKIE));
+    const token = cookieStore.get(String(process.env.NEXT_PUBLIC_AUTH_COOKIE));
 
     if(!token) return null;
 

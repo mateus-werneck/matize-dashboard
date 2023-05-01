@@ -33,15 +33,14 @@ export function AuthProvider({ children, userAuthenticated }: IAuthProvider) {
     if (!token) {
       throw new InvalidCredentialsError();
     }
-
-    setCookie(undefined, String(process.env.AUTH_COOKIE), token, {
+    setCookie(undefined, String(process.env.NEXT_PUBLIC_AUTH_COOKIE), token, {
       maxAge: 86400
     });
     setUser(user);
   }
 
   async function signOut() {
-    destroyCookie(undefined, String(process.env.AUTH_COOKIE));
+    destroyCookie(undefined, String(process.env.NEXT_PUBLIC_AUTH_COOKIE));
     setUser(null);
   }
 
