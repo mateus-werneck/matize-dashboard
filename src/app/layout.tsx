@@ -1,7 +1,9 @@
 import { MatizeBody } from '@Components/Body';
 import { AuthProvider } from '@Contexts/AuthContext';
-import { withSession } from '@Lib/session';
+import { MenuAdminProvider } from '@Contexts/MenuAdminContext';
+import { getMenuAdmin, withSession } from '@Lib/session';
 import { GlobalStyle } from '@Styles/global';
+import { MenuAdminView } from '@Types/menu';
 import { Metadata } from 'next';
 import React, { use } from 'react';
 
@@ -24,13 +26,20 @@ interface IRootLayout {
 
 export default function RootLayout({ children }: IRootLayout) {
   const userAuthenticated = use(withSession());
+  let menuAdmin = [] as MenuAdminView[];
+
+  if (userAuthenticated) {
+    menuAdmin = use(getMenuAdmin());
+  }
 
   return (
     <AuthProvider userAuthenticated={userAuthenticated}>
-      <html lang="en">
-        <GlobalStyle />
-        <MatizeBody>{children}</MatizeBody>
-      </html>
+      <MenuAdminProvider preLoadedMenu={menuAdmin}>
+        <html lang="en">
+          <GlobalStyle />
+          <MatizeBody>{children}</MatizeBody>
+        </html>
+      </MenuAdminProvider>
     </AuthProvider>
   );
 }

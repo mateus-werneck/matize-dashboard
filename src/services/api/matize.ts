@@ -2,6 +2,10 @@ import { bearerToken } from '@Utils/String';
 import axios from 'axios';
 import { parseCookies } from 'nookies';
 
+export const serverMatizeAPI = axios.create({
+    baseURL: 'http://localhost:3333/'
+  });
+
 export const matizeAPI = axios.create({
   baseURL: 'http://localhost:3333/'
 });

@@ -1,4 +1,4 @@
-import { useSidebar } from '@Contexts/SidebarContext';
+import { useMenuAdmin } from '@Contexts/MenuAdminContext';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import HomeIcon from '@mui/icons-material/Home';
 import InventoryIcon from '@mui/icons-material/Inventory';
@@ -34,7 +34,7 @@ export const NavBarItem = (props: INavBarItem) => {
 };
 
 function useNavBarLink({ route, name, icon, iconPosition }: INavBarItem) {
-  const { isMinimalActive } = useSidebar();
+  const { SideBar } = useMenuAdmin();
 
   function getNavBarLink(): JSX.Element {
     const customStyle = getCustomStyle();
@@ -68,7 +68,7 @@ function useNavBarLink({ route, name, icon, iconPosition }: INavBarItem) {
   }
 
   function isLeftStandardStyle(): boolean {
-    return isLeftPosition() && !isMinimalActive();
+    return isLeftPosition() && !SideBar.isMinimalActive();
   }
 
   function getIcon(icon: string) {

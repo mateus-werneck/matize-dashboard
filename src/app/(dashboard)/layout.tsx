@@ -2,7 +2,6 @@
 import { Dashboard } from '@Components/Body/Dashboard';
 import { Header } from '@Components/Header';
 import { useAuth } from '@Contexts/AuthContext';
-import { SidebarProvider } from '@Contexts/SidebarContext';
 import { redirect } from 'next/navigation';
 import React from 'react';
 
@@ -18,9 +17,9 @@ export default function MainLayout({ children }: IMainLayout) {
   }
 
   return (
-    <SidebarProvider>
+    <>
       <Header />
       <Dashboard>{children}</Dashboard>
-    </SidebarProvider>
+    </>
   );
 }

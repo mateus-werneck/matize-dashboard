@@ -1,12 +1,8 @@
-import { matizeAPI } from '@API/matize';
-import { INavBarItem, NavBarItem } from '@Components/Header/SideBar/NavItem';
-import { User, useAuth } from '@Contexts/AuthContext';
+import { NavBarItem } from '@Components/Header/SideBar/NavItem';
+import { useAuth } from '@Contexts/AuthContext';
+import { useMenuAdmin } from '@Contexts/MenuAdminContext';
 import { useEffect, useMemo, useState } from 'react';
 import { HeaderNavBar, SideBarContainer } from './style';
-
-interface ISideBar {
-  minimalSidebar: boolean;
-}
 
 export type MenuAdminView = {
   matizeId: string;
@@ -16,16 +12,18 @@ export type MenuAdminView = {
   icon: string;
 };
 
-export const SideBar = ({ minimalSidebar }: ISideBar) => {
-  const { user } = useAuth();
-  const { dashboard } = useDashboard(minimalSidebar, user);
+export const SideBar = () => {
+  const { SideBar } = useMenuAdmin();
+  const { dashboard } = useDashboard();
 
   return (
     <SideBarContainer
-      customstyle={{ maxWidth: !minimalSidebar ? '250px' : '90px' }}
+      customstyle={{ maxWidth: !SideBar.isMinimalActive() ? '250px' : '90px' }}
     >
       <HeaderNavBar
-        customstyle={{ alignItems: !minimalSidebar ? 'inherit' : 'center' }}
+        customstyle={{
+          alignItems: !SideBar.isMinimalActive() ? 'inherit' : 'center'
+        }}
       >
         {dashboard}
       </HeaderNavBar>
@@ -33,69 +31,56 @@ export const SideBar = ({ minimalSidebar }: ISideBar) => {
   );
 };
 
-function useDashboard(minimalSidebar: boolean, user: User | null) {
-  const [rawDashboard, setRawDashboard] = useState<MenuAdminView[]>([]);
+function useDashboard() {
   const [dashboard, setDashboard] = useState<JSX.Element[]>([]);
-
-  async function appendDashboard() {
-    const dashboard = await treatDashboard();
-    setDashboard(dashboard);
-  }
-
-  async function treatDashboard() {
-    const standardDashboard = getStandardDashboard();
-    let data = rawDashboard;
-
-    if (!rawDashboard.length) data = await appendRawDashboard();
-
-    const newDashboard =
-      data &&
-      data.map((menu) => (
-        <NavBarItem
-          key={menu['name'] + '-' + menu['icon']}
-          route={menu['route']}
-          name={!minimalSidebar ? menu['name'] : ''}
-          icon={menu['icon']}
-        />
-      ));
-
-    return standardDashboard.concat(newDashboard ? newDashboard : []);
-  }
-
-  async function appendRawDashboard(): Promise<MenuAdminView[]> {
-    const response = await matizeAPI.get('admin-dashboard');
-    const menuAdmin = response.data;
-    setRawDashboard(menuAdmin);
-    return menuAdmin;
-  }
-
-  function getStandardDashboard() {
-    const userItem: INavBarItem = {
-      route: '/conta',
-      name: !minimalSidebar ? (user ? user.fullName : '') : '',
-      icon: 'AccountCircleIcon',
-      iconPosition: 'left'
-    };
-
-    const homeItem: INavBarItem = {
-      route: '/',
-      name: !minimalSidebar ? 'Dashboard' : '',
-      icon: 'HomeIcon'
-    };
-
-    return [
-      <NavBarItem key={userItem.name + '-' + userItem.icon} {...userItem} />,
-      <NavBarItem key={homeItem.name + '-' + homeItem.icon} {...homeItem} />
-    ];
-  }
+  const { SideBar, MenuAdmin } = useMenuAdmin();
+  const { user } = useAuth();
 
   useEffect(() => {
-    appendDashboard();
+    renderDashboard();
   }, []);
 
   useMemo(() => {
-    appendDashboard();
-  }, [minimalSidebar]);
+    renderDashboard();
+  }, [SideBar.minimalSidebar]);
+
+  async function renderDashboard() {
+    const menuAdmin = await MenuAdmin.refreshMenu();
+    const dashboard = getTreatedDashboard(menuAdmin);
+    setDashboard(dashboard);
+  }
+
+  function getTreatedDashboard(
+    customDashboard: MenuAdminView[]
+  ): JSX.Element[] {
+    const treatedDashboard = customDashboard.map((menu) => (
+      <NavBarItem
+        key={menu['name'] + '-' + menu['icon']}
+        route={menu['route']}
+        name={getNavBarItemName(menu['name'])}
+        icon={menu['icon']}
+        iconPosition={getNavBarItemIconPosition(menu['name'])}
+      />
+    ));
+
+    if (!treatedDashboard) return [] as JSX.Element[];
+
+    return treatedDashboard;
+  }
+
+  function getNavBarItemName(name: string): string {
+    if (SideBar.isMinimalActive()) name = '';
+
+    if (name === 'Conta' && user) name = user.fullName;
+
+    return name;
+  }
+
+  function getNavBarItemIconPosition(name: string): 'left' | 'right' {
+    if (name === 'Conta') return 'left';
+
+    return 'right';
+  }
 
   return { dashboard };
 }

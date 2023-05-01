@@ -4,15 +4,17 @@ import {
   LogoName,
   LogoNameContainer
 } from '@Components/Header/Logo/style';
+import { useMenuAdmin } from '@Contexts/MenuAdminContext';
 import Image from 'next/image';
 import React from 'react';
 
 interface IMatizeLogo {
   children: React.ReactNode;
-  minimalSidebar: boolean;
 }
 
-export const Logo = ({ children, minimalSidebar }: IMatizeLogo) => {
+export const Logo = ({ children }: IMatizeLogo) => {
+  const { SideBar } = useMenuAdmin();
+
   const LogoImage = () => {
     return (
       <LogoLink href={'/'} style={{ maxHeight: 64, marginBottom: '7px' }}>
@@ -22,7 +24,7 @@ export const Logo = ({ children, minimalSidebar }: IMatizeLogo) => {
           width={64}
           height={64}
         />
-        {!minimalSidebar && (
+        {!SideBar.minimalSidebar && (
           <LogoNameContainer>
             <LogoName>Matize</LogoName>
           </LogoNameContainer>
@@ -33,7 +35,7 @@ export const Logo = ({ children, minimalSidebar }: IMatizeLogo) => {
 
   return (
     <HeaderLogoContainer
-      style={{ maxWidth: !minimalSidebar ? '250px' : '140px' }}
+      style={{ maxWidth: !SideBar.minimalSidebar ? '250px' : '140px' }}
     >
       <LogoImage />
       {children}

@@ -1,12 +1,12 @@
 import { MatizeButton } from '@Components/Button';
+import { useMenuAdmin } from '@Contexts/MenuAdminContext';
 import { StyledMenuIcon } from './style';
 
-interface IMenuButton {
-  setMinimalSidebar: (value: any) => any;
-}
-export const MenuButton = ({ setMinimalSidebar }: IMenuButton) => {
+export const MenuButton = () => {
+  const { SideBar } = useMenuAdmin();
+
   const onClick = (value: any) => {
-    setMinimalSidebar((previousValue: boolean) => !previousValue);
+    SideBar.setMinimalSidebar((previousValue: boolean) => !previousValue);
   };
   return (
     <>
