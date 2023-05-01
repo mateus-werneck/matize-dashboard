@@ -1,5 +1,6 @@
 import { bearerToken } from '@Utils/String';
 import axios from 'axios';
+import { redirect } from 'next/navigation';
 import { parseCookies } from 'nookies';
 
 export const matizeAPI = axios.create({
@@ -16,6 +17,7 @@ matizeAPI.interceptors.request.use(
     return config;
   },
   (error) => {
+    redirect('/login');
     return Promise.reject(error);
   }
 );

@@ -22,10 +22,10 @@ export const SideBar = ({ minimalSidebar }: ISideBar) => {
 
   return (
     <SideBarContainer
-      customStyle={{ maxWidth: !minimalSidebar ? '250px' : '90px' }}
+      customstyle={{ maxWidth: !minimalSidebar ? '250px' : '90px' }}
     >
       <HeaderNavBar
-        customStyle={{ alignItems: !minimalSidebar ? 'inherit' : 'center' }}
+        customstyle={{ alignItems: !minimalSidebar ? 'inherit' : 'center' }}
       >
         {dashboard}
       </HeaderNavBar>

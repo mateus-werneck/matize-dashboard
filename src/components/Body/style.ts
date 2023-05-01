@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
-interface IMainPainel {
-  customStyle: {
+export interface IMainPainel {
+  customstyle: {
     width: string;
     left: string;
   };
@@ -9,8 +9,8 @@ interface IMainPainel {
 
 export const MainPanel = styled.div<IMainPainel>`
   display: flex;
-  width: ${props => props.customStyle.width};
-  left: ${props => props.customStyle.left};
+  width: ${props => props.customstyle.width};
+  left: ${props => props.customstyle.left};
   justify-content: center;
   position: relative;
   min-height: calc(100vh - 70px);

@@ -2,13 +2,13 @@
 import styled from 'styled-components';
 
 interface ISiderBarContainer {
-  customStyle: {
+  customstyle: {
     maxWidth: string;
   }
 }
 
 interface IHeaderNavBar {
-  customStyle: {
+  customstyle: {
     alignItems: string;
   }
 }
@@ -20,7 +20,7 @@ export const SideBarContainer = styled.nav<ISiderBarContainer>`
   background: var(--gray-20);
   transition: opacity 1s ease-out;
 
-  max-width: ${({ customStyle }) => customStyle.maxWidth};
+  max-width: ${({ customstyle }) => customstyle.maxWidth};
 
   @media screen and (max-width: 540px) {
     min-width: 100%;
@@ -38,5 +38,5 @@ export const HeaderNavBar = styled.ul<IHeaderNavBar>`
   padding-top: 1.25rem;
   transition: opacity 1s ease-out;
 
-  align-items: ${({ customStyle }) => customStyle.alignItems};
+  align-items: ${({ customstyle }) => customstyle.alignItems};
 `;

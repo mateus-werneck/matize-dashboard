@@ -3,7 +3,7 @@ import Link from 'next/link';
 import styled from 'styled-components';
 
 export interface INavBarItemStyle {
-  customStyle: {
+  customstyle: {
     NavBarLink: {
       justifyContent: string;
       svg: {
@@ -28,27 +28,32 @@ export const NavBarLine = styled.li`
 export const NavBarLink = styled(Link)<INavBarItemStyle>`
   display: flex;
   align-items: center;
-  justify-content: ${({ customStyle }) =>
-    customStyle.NavBarLink.justifyContent};
+  justify-content: ${({ customstyle }) =>
+    customstyle.NavBarLink.justifyContent};
 
   @media screen and (max-width: 540px) {
     justify-content: space-evenly;
   }
 
   svg {
-    margin-right: ${({ customStyle }) =>
-      customStyle.NavBarLink.svg.marginRight};
+    margin-right: ${({ customstyle }) =>
+      customstyle.NavBarLink.svg.marginRight};
     color: var(--purple-150);
+
+    @media screen and (max-width: 540px) {
+      margin-right:0.5rem;
+    }
   }
 `;
 
 export const NavBarLinkLabel = styled.span<INavBarItemStyle>`
   display: block;
-  margin-left: ${({ customStyle }) => customStyle.NavBarLinkLabel.marginLeft};
+  margin-left: ${({ customstyle }) => customstyle.NavBarLinkLabel.marginLeft};
   font-size: 0.7rem;
   color: var(--gray-500);
 
   @media screen and (max-width: 540px) {
     display: none;
+    margin-left: 0 !important;
   }
 `;

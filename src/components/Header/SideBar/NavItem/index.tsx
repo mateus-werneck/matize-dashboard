@@ -1,3 +1,4 @@
+import { useSidebar } from '@Contexts/SidebarContext';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import HomeIcon from '@mui/icons-material/Home';
 import InventoryIcon from '@mui/icons-material/Inventory';
@@ -14,47 +15,6 @@ export interface INavBarItem {
   iconPosition?: 'left' | 'right';
 }
 
-export const NavBarItem = ({
-  route,
-  name,
-  icon,
-  iconPosition
-}: INavBarItem) => {
-  function getNavBarLink() {
-    const position = iconPosition ? iconPosition : 'right';
-
-    const customStyle = {
-      NavBarLink: {
-        justifyContent: position === 'left' ? 'space-evenly' : 'space-between',
-        svg: {
-          marginRight: position === 'left' ? '-1.5rem' : '0.5rem',
-        }
-      },
-      NavBarLinkLabel: {
-        marginLeft: position === 'left' ? '0' : '2.25rem',
-      }
-    }
-
-    if (position === 'left') {
-      return (
-        <NavBarLink href={route} customStyle={customStyle}>
-          {getIcon(icon ? icon : 'StandardIcon')}
-          {name != '' && <NavBarLinkLabel customStyle={customStyle}>{name}</NavBarLinkLabel>}
-        </NavBarLink>
-      );
-    }
-
-    return (
-      <NavBarLink href={route} customStyle={customStyle}>
-        {name != '' && <NavBarLinkLabel customStyle={customStyle}>{name}</NavBarLinkLabel>}
-        {getIcon(icon ? icon : 'StandardIcon')}
-      </NavBarLink>
-    );
-  }
-
-  return <NavBarLine>{getNavBarLink()}</NavBarLine>;
-};
-
 const MenuIcons: MenuIconsType = {
   HomeIcon: <HomeIcon />,
   InventoryIcon: <InventoryIcon />,
@@ -68,9 +28,55 @@ type MenuIconsType = {
   [key: string]: React.ReactNode;
 };
 
-function getIcon(icon: string) {
-  const menuIcon = MenuIcons[icon];
-  if (!menuIcon) return MenuIcons.StandardIcon;
+export const NavBarItem = (props: INavBarItem) => {
+  const { getNavBarLink } = useNavBarLink(props);
+  return <NavBarLine>{getNavBarLink()}</NavBarLine>;
+};
 
-  return menuIcon;
+function useNavBarLink({ route, name, icon, iconPosition }: INavBarItem) {
+  const { isMinimalActive } = useSidebar();
+
+  function getNavBarLink(): JSX.Element {
+    const customStyle = getCustomStyle();
+    return (
+      <NavBarLink href={route} customstyle={customStyle}>
+        {isLeftPosition() && getIcon(icon ? icon : 'StandardIcon')}
+        {name != '' && (
+          <NavBarLinkLabel customstyle={customStyle}>{name}</NavBarLinkLabel>
+        )}
+        {!isLeftPosition() && getIcon(icon ? icon : 'StandardIcon')}
+      </NavBarLink>
+    );
+  }
+
+  function isLeftPosition(): boolean {
+    return iconPosition !== undefined && iconPosition === 'left';
+  }
+
+  function getCustomStyle() {
+    return {
+      NavBarLink: {
+        justifyContent: isLeftStandardStyle() ? 'space-evenly' : 'space-between',
+        svg: {
+          marginRight: isLeftStandardStyle() ? '-1.5rem' : '0.5rem'
+        }
+      },
+      NavBarLinkLabel: {
+        marginLeft: isLeftStandardStyle() ? '0' : '2.25rem'
+      }
+    };
+  }
+
+  function isLeftStandardStyle(): boolean {
+    return isLeftPosition() && !isMinimalActive();
+  }
+
+  function getIcon(icon: string) {
+    const menuIcon = MenuIcons[icon];
+    if (!menuIcon) return MenuIcons.StandardIcon;
+
+    return menuIcon;
+  }
+
+  return { getNavBarLink, getIcon };
 }
