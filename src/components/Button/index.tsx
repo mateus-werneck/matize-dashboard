@@ -2,7 +2,7 @@ import { CSSProperties } from 'react';
 import { StyledMatizeButton } from './style';
 
 interface IMatizeButton {
-  onClick: (value: any) => void;
+  onClick: (value: React.MouseEvent<HTMLButtonElement>) => void;
   children: React.ReactNode;
   variant?: 'text' | 'contained' | 'outlined';
   size?: 'small' | 'medium' | 'large';

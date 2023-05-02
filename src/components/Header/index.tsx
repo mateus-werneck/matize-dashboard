@@ -1,3 +1,4 @@
+import { AccountBar } from '@Components/Header/AccountBar';
 import { Logo } from '@Components/Header/Logo';
 import { MenuButton } from '@Components/Header/MenuButton/index';
 import { SearchBar } from '@Components/Header/SearchBar';
@@ -12,6 +13,7 @@ export function Header() {
           <MenuButton />
         </Logo>
         <SearchBar />
+        <AccountBar />
       </HeaderLeftContainer>
       <SideBar />
     </HeaderMainContainer>

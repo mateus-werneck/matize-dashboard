@@ -5,7 +5,7 @@ import { StyledMenuIcon } from './style';
 export const MenuButton = () => {
   const { SideBar } = useMenuAdmin();
 
-  const onClick = (value: any) => {
+  const onClick = (value: React.MouseEvent<HTMLButtonElement>) => {
     SideBar.setMinimalSidebar((previousValue: boolean) => !previousValue);
   };
   return (
