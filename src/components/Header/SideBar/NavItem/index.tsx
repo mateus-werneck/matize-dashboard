@@ -13,6 +13,7 @@ export interface INavBarItem {
   name: string;
   icon?: string;
   iconPosition?: 'left' | 'right';
+  children?: React.ReactNode;
 }
 
 const MenuIcons: MenuIconsType = {
@@ -33,18 +34,20 @@ export const NavBarItem = (props: INavBarItem) => {
   return <NavBarLine>{getNavBarLink()}</NavBarLine>;
 };
 
-function useNavBarLink({ route, name, icon, iconPosition }: INavBarItem) {
+function useNavBarLink({ route, name, icon, iconPosition, children }: INavBarItem) {
   const { SideBar } = useMenuAdmin();
 
   function getNavBarLink(): JSX.Element {
     const customStyle = getCustomStyle();
+    const navIcon: React.ReactNode = children !== undefined ? children: getIcon(icon);
+    
     return (
       <NavBarLink href={route} customstyle={customStyle}>
-        {isLeftPosition() && getIcon(icon ? icon : 'StandardIcon')}
+        {isLeftPosition() && navIcon}
         {name != '' && (
           <NavBarLinkLabel customstyle={customStyle}>{name}</NavBarLinkLabel>
         )}
-        {!isLeftPosition() && getIcon(icon ? icon : 'StandardIcon')}
+        {!isLeftPosition() && navIcon}
       </NavBarLink>
     );
   }
@@ -71,7 +74,9 @@ function useNavBarLink({ route, name, icon, iconPosition }: INavBarItem) {
     return isLeftPosition() && !SideBar.isMinimalActive();
   }
 
-  function getIcon(icon: string) {
+  function getIcon(icon?: string): React.ReactNode {
+    if (!icon) return <></>;
+    
     const menuIcon = MenuIcons[icon];
     if (!menuIcon) return MenuIcons.StandardIcon;
 

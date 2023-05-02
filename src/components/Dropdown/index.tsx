@@ -1,19 +1,22 @@
 import { MatizeButton } from '@Components/Button';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import React, { useState } from 'react';
+import React, { CSSProperties, useState } from 'react';
 import {
-    DropDownButtonContainer,
-    DropDownLine,
-    DropDownNav,
-    DropDownNavUl
+  DropDownButtonContainer,
+  DropDownLine,
+  DropDownNav,
+  DropDownNavUl
 } from './style';
 
 interface IDropDown {
   actions: JSX.Element[];
+  button?: JSX.Element;
+  arrowStyles?: CSSProperties;
+  dropDownStyles?: CSSProperties;
 }
 
-export const MatizeDropDown = ({ actions }: IDropDown) => {
-  const { getArrowDownButton, getActions } = useDropDownMenu(actions);
+export const MatizeDropDown = (props: IDropDown) => {
+  const { getArrowDownButton, getActions } = useDropDownMenu(props);
   return (
     <DropDownButtonContainer>
       {getArrowDownButton()}
@@ -22,7 +25,7 @@ export const MatizeDropDown = ({ actions }: IDropDown) => {
   );
 };
 
-function useDropDownMenu(actions: JSX.Element[]) {
+function useDropDownMenu({ actions, button, arrowStyles, dropDownStyles}: IDropDown) {
   const [showDropDown, setDropDownVisibility] = useState<boolean>(false);
 
   function getArrowDownButton() {
@@ -31,11 +34,20 @@ function useDropDownMenu(actions: JSX.Element[]) {
       setDropDownVisibility((previousValue: any) => !previousValue);
     }
 
-    return (
+    const arrowButton = (
       <MatizeButton onClick={onClick} variant="text" size="small">
-        <KeyboardArrowDownIcon />
+        <KeyboardArrowDownIcon style={arrowStyles}/>
       </MatizeButton>
     );
+
+    if (button !== undefined) {
+      return React.cloneElement(button, {
+        ...button.props,
+        children: arrowButton
+      });
+    }
+
+    return arrowButton;
   }
 
   function getActions() {
@@ -44,7 +56,7 @@ function useDropDownMenu(actions: JSX.Element[]) {
     }
 
     return (
-      <DropDownNav>
+      <DropDownNav style={dropDownStyles}>
         <DropDownNavUl>
           {actions.map((action, index) => (
             <DropDownLine key={'DropDownLine_' + index + '_' + action.key}>
