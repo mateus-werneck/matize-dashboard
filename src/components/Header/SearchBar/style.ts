@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const SearchBarContainer = styled.div`
   display: flex;
-  width: 50%;
+  width: 78%;
   gap: 10px;
   align-items: center;
   justify-content: flex-start;
