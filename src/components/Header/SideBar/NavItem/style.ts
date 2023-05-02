@@ -12,6 +12,7 @@ export interface INavBarItemStyle {
     };
     NavBarLinkLabel: {
       marginLeft: string;
+      fontSize: string;
     };
   };
 }
@@ -49,7 +50,7 @@ export const NavBarLink = styled(Link)<INavBarItemStyle>`
 export const NavBarLinkLabel = styled.span<INavBarItemStyle>`
   display: block;
   margin-left: ${({ customstyle }) => customstyle.NavBarLinkLabel.marginLeft};
-  font-size: 0.7rem;
+  font-size: ${({ customstyle }) => customstyle.NavBarLinkLabel.fontSize};
   color: var(--gray-500);
 
   @media screen and (max-width: 540px) {

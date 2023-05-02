@@ -71,7 +71,8 @@ function useDashboard() {
         route={menu['route']}
         name={getNavBarItemName(menu['name'])}
         icon={menu['icon']}
-        iconPosition={getNavBarItemIconPosition(menu['name'])}
+        iconPosition={getNavBarItemIconPosition(menu)}
+        iconSize={getNavBarItemIconSize(menu)}
       />
     );
   }
@@ -84,10 +85,24 @@ function useDashboard() {
     return name;
   }
 
-  function getNavBarItemIconPosition(name: string): 'left' | 'right' {
-    if (name === 'Conta') return 'left';
+  function getNavBarItemIconPosition(menu: MenuAdminView): 'left' | 'right' {
+    let iconPosition: 'left' | 'right' = 'right';
 
-    return 'right';
+    if (menu.name === 'Conta') iconPosition = 'left';
+
+    if (menu.icon === 'ArrowForwardIcon') iconPosition = 'left';
+
+    return iconPosition;
+  }
+
+  function getNavBarItemIconSize(menu: MenuAdminView): 'small' | 'medium' | 'large' | 'inherit' | undefined {
+    let iconSize: 'small' | 'medium' | 'large' | 'inherit' | undefined = 'inherit';
+
+    if (menu.name === 'Conta') iconSize = undefined;
+
+    if (menu.icon === 'ArrowForwardIcon') iconSize = 'small';
+
+    return iconSize;
   }
 
   function getNavBarItemWithChildren(menu: MenuAdminView) {
@@ -96,10 +111,14 @@ function useDashboard() {
       <MatizeDropDown
         actions={actions}
         button={getNavBarItem(menu)}
-        arrowStyles={{ marginLeft: '5.75rem' }}
+        arrowStyles={{ marginLeft: '5.25rem' }}
         dropDownStyles={{
+          marginTop: 0,
           marginLeft: 0,
-          maxWidth: '250px'
+          width: '250px',
+          border: 'none',
+          borderRadius: 0,
+          boxShadow: 'none',
         }}
       />
     );

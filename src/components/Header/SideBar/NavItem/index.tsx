@@ -1,5 +1,6 @@
 import { useMenuAdmin } from '@Contexts/MenuAdminContext';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import HomeIcon from '@mui/icons-material/Home';
 import InventoryIcon from '@mui/icons-material/Inventory';
 import PersonIcon from '@mui/icons-material/Person';
@@ -13,6 +14,7 @@ export interface INavBarItem {
   name: string;
   icon?: string;
   iconPosition?: 'left' | 'right';
+  iconSize?: 'small' | 'medium' | 'large' | 'inherit';
   children?: React.ReactNode;
 }
 
@@ -22,7 +24,8 @@ const MenuIcons: MenuIconsType = {
   PersonIcon: <PersonIcon />,
   ShoppingBasketIcon: <ShoppingBasketIcon />,
   AccountCircleIcon: <AccountCircleIcon />,
-  StandardIcon: <WidgetsIcon />
+  StandardIcon: <WidgetsIcon />,
+  ArrowForwardIcon: <ArrowForwardIcon />
 };
 
 type MenuIconsType = {
@@ -34,13 +37,21 @@ export const NavBarItem = (props: INavBarItem) => {
   return <NavBarLine>{getNavBarLink()}</NavBarLine>;
 };
 
-function useNavBarLink({ route, name, icon, iconPosition, children }: INavBarItem) {
+function useNavBarLink({
+  route,
+  name,
+  icon,
+  iconPosition,
+  iconSize,
+  children
+}: INavBarItem) {
   const { SideBar } = useMenuAdmin();
 
   function getNavBarLink(): JSX.Element {
     const customStyle = getCustomStyle();
-    const navIcon: React.ReactNode = children !== undefined ? children: getIcon(icon);
-    
+    const navIcon: React.ReactNode =
+      children !== undefined ? children : getIcon();
+
     return (
       <NavBarLink href={route} customstyle={customStyle}>
         {isLeftPosition() && navIcon}
@@ -59,13 +70,17 @@ function useNavBarLink({ route, name, icon, iconPosition, children }: INavBarIte
   function getCustomStyle() {
     return {
       NavBarLink: {
-        justifyContent: isLeftStandardStyle() ? 'space-evenly' : 'space-between',
+        justifyContent:
+          isLeftStandardStyle() && icon !== 'ArrowForwardIcon'
+            ? 'space-evenly'
+            : 'space-between',
         svg: {
-          marginRight: isLeftStandardStyle() ? '-1.5rem' : '0.5rem'
+          marginRight: isLeftStandardStyle() ? '-1.5rem' : '1.5rem'
         }
       },
       NavBarLinkLabel: {
-        marginLeft: isLeftStandardStyle() ? '0' : '2.25rem'
+        marginLeft: isLeftStandardStyle() ? '0' : '2.25rem',
+        fontSize: icon !== 'ArrowForwardIcon' ? '0.7rem' : '0.6rem'
       }
     };
   }
@@ -74,11 +89,16 @@ function useNavBarLink({ route, name, icon, iconPosition, children }: INavBarIte
     return isLeftPosition() && !SideBar.isMinimalActive();
   }
 
-  function getIcon(icon?: string): React.ReactNode {
+  function getIcon(): React.ReactNode {
     if (!icon) return <></>;
-    
-    const menuIcon = MenuIcons[icon];
-    if (!menuIcon) return MenuIcons.StandardIcon;
+
+    let menuIcon = MenuIcons[icon];
+
+    if (iconSize) {
+      menuIcon = React.cloneElement(menuIcon as React.ReactElement, {
+        style: { fontSize: iconSize }
+      });
+    }
 
     return menuIcon;
   }
