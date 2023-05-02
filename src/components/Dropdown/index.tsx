@@ -1,5 +1,6 @@
 import { MatizeButton } from '@Components/Button';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import React, { CSSProperties, useState } from 'react';
 import {
   DropDownButtonContainer,
@@ -25,7 +26,12 @@ export const MatizeDropDown = (props: IDropDown) => {
   );
 };
 
-function useDropDownMenu({ actions, button, arrowStyles, dropDownStyles}: IDropDown) {
+function useDropDownMenu({
+  actions,
+  button,
+  arrowStyles,
+  dropDownStyles
+}: IDropDown) {
   const [showDropDown, setDropDownVisibility] = useState<boolean>(false);
 
   function getArrowDownButton() {
@@ -36,7 +42,11 @@ function useDropDownMenu({ actions, button, arrowStyles, dropDownStyles}: IDropD
 
     const arrowButton = (
       <MatizeButton onClick={onClick} variant="text" size="small">
-        <KeyboardArrowDownIcon style={arrowStyles}/>
+        {!showDropDown ? (
+          <KeyboardArrowDownIcon style={arrowStyles} />
+        ) : (
+          <KeyboardArrowUpIcon style={arrowStyles} />
+        )}
       </MatizeButton>
     );
 

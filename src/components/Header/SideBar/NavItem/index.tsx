@@ -49,16 +49,16 @@ function useNavBarLink({
 
   function getNavBarLink(): JSX.Element {
     const customStyle = getCustomStyle();
-    const navIcon: React.ReactNode =
-      children !== undefined ? children : getIcon();
 
     return (
       <NavBarLink href={route} customstyle={customStyle}>
-        {isLeftPosition() && navIcon}
+        {(isLeftPosition() && children !== undefined) && children}
+        {isLeftPosition() && getIcon()}
         {name != '' && (
           <NavBarLinkLabel customstyle={customStyle}>{name}</NavBarLinkLabel>
         )}
-        {!isLeftPosition() && navIcon}
+         {(!isLeftPosition() && children !== undefined) && children}
+        {!isLeftPosition() && getIcon()}
       </NavBarLink>
     );
   }

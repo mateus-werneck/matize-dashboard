@@ -109,6 +109,7 @@ function useDashboard() {
     const actions = menu.Children.map((child) => getNavBarItem(child));
     return (
       <MatizeDropDown
+        key={menu['name'] + '-' + menu['icon'] + '-dropdown'}
         actions={actions}
         button={getNavBarItem(menu)}
         arrowStyles={{ marginLeft: '5.25rem' }}
