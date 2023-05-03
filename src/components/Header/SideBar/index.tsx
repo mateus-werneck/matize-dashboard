@@ -26,9 +26,11 @@ export const SideBar = () => {
 };
 
 function useDashboard() {
-  const [dashboard, setDashboard] = useState<JSX.Element[]>([]);
+  const [dashboard, setDashboard] = useState<JSX.Element[]>(
+    [] as JSX.Element[]
+  );
   const { SideBar, MenuAdmin } = useMenuAdmin();
-  const { user } = useAuth();
+  const { user, hasSession } = useAuth();
 
   useEffect(() => {
     renderDashboard();
@@ -39,14 +41,25 @@ function useDashboard() {
   }, [SideBar.minimalSidebar]);
 
   async function renderDashboard() {
-    const menuAdmin = await MenuAdmin.refreshMenu();
+    let menuAdmin = MenuAdmin.menuAdmin === undefined ? [] : MenuAdmin.menuAdmin;
+    if (shouldReload()) menuAdmin = await MenuAdmin.refreshMenu();
+    
     const dashboard = getTreatedDashboard(menuAdmin);
     setDashboard(dashboard);
+  }
+
+  function shouldReload(): boolean 
+  {
+    return hasSession() && (MenuAdmin.menuAdmin === undefined || MenuAdmin.menuAdmin.length === 0);
   }
 
   function getTreatedDashboard(
     customDashboard: MenuAdminView[]
   ): JSX.Element[] {
+    if (!customDashboard) {
+      return [] as JSX.Element[];
+    }
+
     const treatedDashboard = customDashboard.map((menu) =>
       getEachParentMenu(menu)
     );
@@ -95,8 +108,11 @@ function useDashboard() {
     return iconPosition;
   }
 
-  function getNavBarItemIconSize(menu: MenuAdminView): 'small' | 'medium' | 'large' | 'inherit' | undefined {
-    let iconSize: 'small' | 'medium' | 'large' | 'inherit' | undefined = 'inherit';
+  function getNavBarItemIconSize(
+    menu: MenuAdminView
+  ): 'small' | 'medium' | 'large' | 'inherit' | undefined {
+    let iconSize: 'small' | 'medium' | 'large' | 'inherit' | undefined =
+      'inherit';
 
     if (menu.name === 'Conta') iconSize = undefined;
 
@@ -119,7 +135,7 @@ function useDashboard() {
           width: '250px',
           border: 'none',
           borderRadius: 0,
-          boxShadow: 'none',
+          boxShadow: 'none'
         }}
       />
     );

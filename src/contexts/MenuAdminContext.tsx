@@ -1,7 +1,7 @@
 'use client';
 import { matizeAPI } from '@API/matize';
 import { MenuAdminView } from '@Types/menu';
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useEffect, useState } from 'react';
 
 type IMenuAdminContext = {
   SideBar: IMinimalSiderBar;
@@ -30,16 +30,28 @@ export function MenuAdminProvider({
   children,
   preLoadedMenu
 }: IMenuAdminProvider) {
-  const [menuAdmin, setMenuAdmin] = useState<MenuAdminView[]>(preLoadedMenu);
+  const [menuAdmin, setMenuAdmin] = useState<MenuAdminView[]>(
+    [] as MenuAdminView[]
+  );
   const [minimalSidebar, setMinimalSidebar] = useState<boolean>(false);
 
-  async function refreshMenu(): Promise<MenuAdminView[]> {
-    if (menuAdmin.length > 0) return menuAdmin;
+  useEffect(() => {
+    preLoadedMenu.length > 0 && setMenuAdmin(preLoadedMenu);
+    !preLoadedMenu.length && refreshMenu();
+  }, []);
 
-    const response = await matizeAPI.get('admin-dashboard');
-    const menuAdminView = response.data
-    setMenuAdmin(menuAdminView);
-    return menuAdminView
+  async function refreshMenu(): Promise<MenuAdminView[]> {
+    let menuAdminView = [] as MenuAdminView[];
+    if (menuAdmin !== undefined && menuAdmin.length > 0) return menuAdminView;
+
+    try {
+      const response = await matizeAPI.get('admin-dashboard');
+      menuAdminView = response.data;
+      setMenuAdmin(menuAdminView);
+      return menuAdminView;
+    } catch (error) {
+      return menuAdminView;
+    }
   }
 
   function isMinimalActive(): boolean {
