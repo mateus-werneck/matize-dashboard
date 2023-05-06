@@ -1,27 +1,22 @@
-'use client';
-import { useAuth } from '@Contexts/AuthContext';
-import { useRouter } from 'next/navigation';
+import { signIn } from 'next-auth/react';
 import { UseFormReturn } from 'react-hook-form';
 import { ZodType, z } from 'zod';
 import { MatizeForm, MatizeFormInput } from '../Standard';
 
 export const LoginForm = () => {
-  const { signIn } = useAuth();
-  const router = useRouter();
-
   const onSubmit = (data: any, formContext: UseFormReturn<any>) => {
-    signIn({
+    signIn('credentials', {
+      redirect: true,
+      callbackUrl: '/',
       email: data.userEmail,
       password: data.userPassword
-    })
-      .then(() => router.push('/'))
-      .catch((error) => {
-        formContext.setError('userPassword', {
-          type: 'manual',
-          message: 'Email ou senha informado inválidos.'
-        });
-        formContext.reset(data, { keepErrors: true });
+    }).catch((error) => {
+      formContext.setError('userPassword', {
+        type: 'manual',
+        message: 'Email ou senha informado inválidos.'
       });
+      formContext.reset(data, { keepErrors: true });
+    });
   };
 
   return (

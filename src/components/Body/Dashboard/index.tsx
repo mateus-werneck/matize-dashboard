@@ -1,3 +1,4 @@
+'use client';
 import { useMenuAdmin } from '@Contexts/MenuAdminContext';
 import React from 'react';
 import { MainPanel } from '../style';

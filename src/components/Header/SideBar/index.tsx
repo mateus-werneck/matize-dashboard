@@ -1,6 +1,5 @@
 import { MatizeDropDown } from '@Components/Dropdown';
 import { NavBarItem } from '@Components/Header/SideBar/NavItem';
-import { useAuth } from '@Contexts/AuthContext';
 import { useMenuAdmin } from '@Contexts/MenuAdminContext';
 import { MenuAdminView } from '@Types/menu';
 import { useEffect, useMemo, useState } from 'react';
@@ -29,8 +28,7 @@ function useDashboard() {
   const [dashboard, setDashboard] = useState<JSX.Element[]>(
     [] as JSX.Element[]
   );
-  const { SideBar, MenuAdmin } = useMenuAdmin();
-  const { user, hasSession } = useAuth();
+  const { SideBar } = useMenuAdmin();
 
   useEffect(() => {
     renderDashboard();
@@ -41,16 +39,9 @@ function useDashboard() {
   }, [SideBar.minimalSidebar]);
 
   async function renderDashboard() {
-    let menuAdmin = MenuAdmin.menuAdmin === undefined ? [] : MenuAdmin.menuAdmin;
-    if (shouldReload()) menuAdmin = await MenuAdmin.refreshMenu();
-    
+    let menuAdmin = [] as MenuAdminView[];
     const dashboard = getTreatedDashboard(menuAdmin);
     setDashboard(dashboard);
-  }
-
-  function shouldReload(): boolean 
-  {
-    return hasSession() && (MenuAdmin.menuAdmin === undefined || MenuAdmin.menuAdmin.length === 0);
   }
 
   function getTreatedDashboard(
@@ -93,7 +84,7 @@ function useDashboard() {
   function getNavBarItemName(name: string): string {
     if (SideBar.isMinimalActive()) name = '';
 
-    if (name === 'Conta' && user) name = user.fullName;
+    // if (name === 'Conta' && user) name = user.fullName;
 
     return name;
   }

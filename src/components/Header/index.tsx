@@ -1,8 +1,7 @@
-import { AccountBar } from '@Components/Header/AccountBar';
+'use client';
 import { Logo } from '@Components/Header/Logo';
 import { MenuButton } from '@Components/Header/MenuButton/index';
 import { SearchBar } from '@Components/Header/SearchBar';
-import { SideBar } from '@Components/Header/SideBar';
 import { HeaderLeftContainer, HeaderMainContainer } from './style';
 
 export function Header() {
@@ -13,9 +12,9 @@ export function Header() {
           <MenuButton />
         </Logo>
         <SearchBar />
-        <AccountBar />
+        {/* <AccountBar /> */}
       </HeaderLeftContainer>
-      <SideBar />
+      {/* <SideBar /> */}
     </HeaderMainContainer>
   );
 }

@@ -1,4 +1,6 @@
-export type User = {
+import { MenuAdminView } from "./menu";
+
+export type MatizeUser = {
   matizeId: string;
   firstName: string;
   lastName: string;
@@ -8,4 +10,5 @@ export type User = {
   isAdmin: boolean;
   iat: number;
   exp: number;
+  menu?: MenuAdminView[]
 };
