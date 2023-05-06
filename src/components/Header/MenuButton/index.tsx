@@ -1,12 +1,12 @@
 import { MatizeButton } from '@Components/Button';
-import { useMenuAdmin } from '@Contexts/MenuAdminContext';
+import { useSidebar } from '@Contexts/SidebarContext';
 import { StyledMenuIcon } from './style';
 
 export const MenuButton = () => {
-  const { SideBar } = useMenuAdmin();
+  const { setMinimalSidebar } = useSidebar();
 
   const onClick = (value: React.MouseEvent<HTMLButtonElement>) => {
-    SideBar.setMinimalSidebar((previousValue: boolean) => !previousValue);
+    setMinimalSidebar((previousValue: boolean) => !previousValue);
   };
   return (
     <>

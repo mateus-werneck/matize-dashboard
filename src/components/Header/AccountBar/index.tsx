@@ -1,24 +1,23 @@
 import { MatizeDropDown } from '@Components/Dropdown';
-import { useAuth } from '@Contexts/AuthContext';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import { signOut, useSession } from 'next-auth/react';
 import { AccountBarContainer, StyledProfileButton } from './style';
 
 export const AccountBar = () => {
-  const { user } = useAuth();
+  const { data } = useSession();
+  const user = data?.user;
   const { getAccountDropDown } = useDropDown();
 
   return (
     <AccountBarContainer>
       <AccountCircleIcon />
-      <span>{user?.fullName}</span>
+      <span>{user?.name}</span>
       {getAccountDropDown()}
     </AccountBarContainer>
   );
 };
 
 function useDropDown() {
-  const Auth = useAuth();
-
   function getAccountDropDown(): JSX.Element {
     return <MatizeDropDown actions={getDropDownActions()} />;
   }
@@ -32,7 +31,7 @@ function useDropDown() {
 
   function getDropDownSignOutButton(): JSX.Element {
     function onClick() {
-      Auth.signOut();
+      signOut();
     }
     return (
       <StyledProfileButton href="#" onClick={onClick}>

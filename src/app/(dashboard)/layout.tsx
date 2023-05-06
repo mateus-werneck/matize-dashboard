@@ -1,7 +1,11 @@
+import { matizeV2 } from '@API/matize';
 import { Dashboard } from '@Components/Body/Dashboard';
 import { Header } from '@Components/Header';
-import { MenuAdminProvider } from '@Contexts/MenuAdminContext';
+import { SidebarProvider } from '@Contexts/SidebarContext';
+import { MenuAdminView } from '@Types/menu';
+import { bearerToken } from '@Utils/String';
 import { getServerSession } from 'next-auth';
+import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 import React from 'react';
 
@@ -15,11 +19,34 @@ export default async function MainLayout({ children }: IMainLayout) {
   if (!session) {
     redirect('/api/auth/signin');
   }
-  
+
+  const sidebarMenu = await getSidebarMenu();
+
   return (
-    <MenuAdminProvider>
-      <Header />
+    <SidebarProvider>
+      <Header sidebarMenu={sidebarMenu} />
       <Dashboard>{children}</Dashboard>
-    </MenuAdminProvider>
+    </SidebarProvider>
   );
+}
+
+async function getSidebarMenu(): Promise<MenuAdminView[]> {
+  const cookieStore = cookies();
+  const token = cookieStore.get(String(process.env.MATIZE_COOKIE));
+
+  if (!token) {
+    redirect('/api/auth/signin');
+  }
+
+  try {
+    const response = await matizeV2.get('admin-dashboard', {
+      headers: {
+        Authorization: bearerToken(token.value)
+      }
+    });
+    const dashboard = response.data as MenuAdminView[];
+    return dashboard;
+  } catch (error) {
+    redirect('/api/auth/signin');
+  }
 }

@@ -1,22 +1,32 @@
+'use client';
+import { InvalidCredentialsError } from '@Errors/login/invalidCredentials';
 import { signIn } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
 import { UseFormReturn } from 'react-hook-form';
 import { ZodType, z } from 'zod';
 import { MatizeForm, MatizeFormInput } from '../Standard';
 
 export const LoginForm = () => {
-  const onSubmit = (data: any, formContext: UseFormReturn<any>) => {
-    signIn('credentials', {
-      redirect: true,
-      callbackUrl: '/',
-      email: data.userEmail,
-      password: data.userPassword
-    }).catch((error) => {
+  const router = useRouter();
+
+  const onSubmit = async (data: any, formContext: UseFormReturn<any>) => {
+    try {
+      const response = await signIn('credentials', {
+        redirect: false,
+        email: data.userEmail,
+        password: data.userPassword
+      });
+      if (response?.error) {
+        throw new InvalidCredentialsError();
+      }
+      router.push('/');
+    } catch (error) {
       formContext.setError('userPassword', {
         type: 'manual',
         message: 'Email ou senha informado inválidos.'
       });
       formContext.reset(data, { keepErrors: true });
-    });
+    }
   };
 
   return (

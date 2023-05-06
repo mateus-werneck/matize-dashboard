@@ -1,4 +1,3 @@
-import { MenuAdminView } from "./menu";
 
 export type MatizeUser = {
   matizeId: string;
@@ -10,5 +9,4 @@ export type MatizeUser = {
   isAdmin: boolean;
   iat: number;
   exp: number;
-  menu?: MenuAdminView[]
 };

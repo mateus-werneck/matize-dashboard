@@ -1,4 +1,4 @@
-import { useMenuAdmin } from '@Contexts/MenuAdminContext';
+import { useSidebar } from '@Contexts/SidebarContext';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import HomeIcon from '@mui/icons-material/Home';
@@ -45,7 +45,7 @@ function useNavBarLink({
   iconSize,
   children
 }: INavBarItem) {
-  const { SideBar } = useMenuAdmin();
+  const { isMinimalActive } = useSidebar();
 
   function getNavBarLink(): JSX.Element {
     const customStyle = getCustomStyle();
@@ -86,7 +86,7 @@ function useNavBarLink({
   }
 
   function isLeftStandardStyle(): boolean {
-    return isLeftPosition() && !SideBar.isMinimalActive();
+    return isLeftPosition() && !isMinimalActive();
   }
 
   function getIcon(): React.ReactNode {

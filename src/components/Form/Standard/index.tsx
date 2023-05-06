@@ -9,7 +9,7 @@ import { FormInputContainer, StyledForm } from './style';
 interface IMatizeForm {
   formInputs: MatizeFormInput[];
   validationSchema: ZodType;
-  onSubmit: (data: any, formContext: UseFormReturn<any>) => void;
+  onSubmit: (data: any, formContext: UseFormReturn<any>) => void | Promise<void>;
   submitButton?: string;
 }
 

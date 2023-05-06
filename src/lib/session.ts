@@ -1,4 +1,4 @@
-import { serverMatizeAPI } from '@API/matize';
+import { matizeV2 } from '@API/matize';
 import { MenuAdminView } from '@Types/menu';
 import { User } from '@Types/user';
 import { bearerToken } from '@Utils/String';
@@ -10,7 +10,7 @@ export async function withSession() {
 
   if (!token) return null;
 
-  const response = await serverMatizeAPI.get('/user/profile', {
+  const response = await matizeV2.get('/user/profile', {
     headers: {
       Authorization: bearerToken(token)
     }
@@ -30,7 +30,7 @@ export async function getMenuAdmin(): Promise<MenuAdminView[]> {
   if (!token) return menuAdmin;
 
   try {
-    const response = await serverMatizeAPI('admin-dashboard', {
+    const response = await matizeV2('admin-dashboard', {
       headers: {
         Authorization: bearerToken(token)
       }

@@ -1,5 +1,5 @@
 'use client';
-import { useMenuAdmin } from '@Contexts/MenuAdminContext';
+import { useSidebar } from '@Contexts/SidebarContext';
 import React from 'react';
 import { MainPanel } from '../style';
 
@@ -8,11 +8,11 @@ interface IDashboard {
 }
 
 export function Dashboard({ children }: IDashboard) {
-  const { SideBar } = useMenuAdmin();
+  const { isMinimalActive } = useSidebar();
 
   const customStyle = {
-    width: SideBar.minimalSidebar ? 'calc(100vw - 90px)' : 'calc(100vw - 250px)',
-    left: SideBar.minimalSidebar ? '90px' : '250px'
+    width: isMinimalActive() ? 'calc(100vw - 90px)' : 'calc(100vw - 250px)',
+    left: isMinimalActive() ? '90px' : '250px'
   };
 
   return <MainPanel customstyle={customStyle}>{children}</MainPanel>;
