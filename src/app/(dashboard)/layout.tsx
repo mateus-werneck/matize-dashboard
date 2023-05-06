@@ -3,6 +3,7 @@ import { Dashboard } from '@Components/Body/Dashboard';
 import { Header } from '@Components/Header';
 import { SidebarProvider } from '@Contexts/SidebarContext';
 import { MenuAdminView } from '@Types/menu';
+import { AuthenticatedUser } from '@Types/user';
 import { bearerToken } from '@Utils/String';
 import { getServerSession } from 'next-auth';
 import { cookies } from 'next/headers';
@@ -20,11 +21,12 @@ export default async function MainLayout({ children }: IMainLayout) {
     redirect('/api/auth/signin');
   }
 
+  const user = session.user as AuthenticatedUser;
   const sidebarMenu = await getSidebarMenu();
 
   return (
     <SidebarProvider>
-      <Header sidebarMenu={sidebarMenu} />
+      <Header user={user} sidebarMenu={sidebarMenu} />
       <Dashboard>{children}</Dashboard>
     </SidebarProvider>
   );

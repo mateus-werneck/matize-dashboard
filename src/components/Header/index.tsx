@@ -4,14 +4,16 @@ import { Logo } from '@Components/Header/Logo';
 import { MenuButton } from '@Components/Header/MenuButton/index';
 import { SearchBar } from '@Components/Header/SearchBar';
 import { MenuAdminView } from '@Types/menu';
+import { AuthenticatedUser } from '@Types/user';
 import { SideBar } from './SideBar';
 import { HeaderLeftContainer, HeaderMainContainer } from './style';
 
 interface IHeader {
+  user: AuthenticatedUser;
   sidebarMenu: MenuAdminView[];
 }
 
-export function Header({ sidebarMenu }: IHeader) {
+export function Header({ user, sidebarMenu }: IHeader) {
   return (
       <HeaderMainContainer>
         <HeaderLeftContainer>
@@ -21,7 +23,7 @@ export function Header({ sidebarMenu }: IHeader) {
           <SearchBar />
           <AccountBar />
         </HeaderLeftContainer>
-        <SideBar sidebarMenu={sidebarMenu} />
+        <SideBar user={user} sidebarMenu={sidebarMenu} />
       </HeaderMainContainer>
   );
 }

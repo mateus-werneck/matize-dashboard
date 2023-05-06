@@ -10,3 +10,9 @@ export type MatizeUser = {
   iat: number;
   exp: number;
 };
+
+
+interface AuthenticatedUser {
+  name?: string;
+  email?: string;
+}

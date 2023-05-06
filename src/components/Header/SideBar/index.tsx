@@ -2,18 +2,19 @@ import { MatizeDropDown } from '@Components/Dropdown';
 import { NavBarItem } from '@Components/Header/SideBar/NavItem';
 import { useSidebar } from '@Contexts/SidebarContext';
 import { MenuAdminView } from '@Types/menu';
-import { useSession } from 'next-auth/react';
+import { AuthenticatedUser } from '@Types/user';
 import { useEffect, useMemo, useState } from 'react';
 import { HeaderNavBar, SideBarContainer } from './style';
 
 interface ISideBar {
+  user: AuthenticatedUser;
   sidebarMenu: MenuAdminView[];
 
 }
 
-export const SideBar = ({ sidebarMenu }: ISideBar) => {
+export const SideBar = ({ user, sidebarMenu }: ISideBar) => {
   const { isMinimalActive } = useSidebar();
-  const { dashboard } = useDashboard(sidebarMenu);
+  const { dashboard } = useDashboard(user, sidebarMenu);
 
   return (
     <SideBarContainer
@@ -30,12 +31,11 @@ export const SideBar = ({ sidebarMenu }: ISideBar) => {
   );
 };
 
-function useDashboard(sideBarMenu: MenuAdminView[]) {
+function useDashboard(user:AuthenticatedUser, sideBarMenu: MenuAdminView[]) {
   const [dashboard, setDashboard] = useState<JSX.Element[]>(
     [] as JSX.Element[]
   );
   const { isMinimalActive, minimalSidebar } = useSidebar();
-  const { data } = useSession();
 
   useEffect(() => {
     renderDashboard();
@@ -90,7 +90,7 @@ function useDashboard(sideBarMenu: MenuAdminView[]) {
   function getNavBarItemName(name: string): string {
     if (isMinimalActive()) name = '';
 
-    if (name === 'Conta' && data?.user?.name) name = data.user.name;
+    if (name === 'Conta' && user.name) name = user.name;
 
     return name;
   }
