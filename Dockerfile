@@ -1,4 +1,6 @@
-FROM node:lts-alpine AS development
+FROM node:18-alpine AS development
+
+RUN apk add --no-cache libc6-compat
 
 WORKDIR /usr/src/app/dashboard
 
