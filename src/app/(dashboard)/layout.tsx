@@ -1,12 +1,13 @@
 import { matizeV2 } from '@API/matize';
+import { nextAuthOptions } from '@Auth/route';
 import { Dashboard } from '@Components/Body/Dashboard';
 import { Header } from '@Components/Header';
 import { SidebarProvider } from '@Contexts/SidebarContext';
 import { MenuAdminView } from '@Types/menu';
+import { MatizeSession } from '@Types/session';
 import { AuthenticatedUser } from '@Types/user';
 import { bearerToken } from '@Utils/String';
 import { getServerSession } from 'next-auth';
-import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 import React from 'react';
 
@@ -15,14 +16,14 @@ interface IMainLayout {
 }
 
 export default async function MainLayout({ children }: IMainLayout) {
-  const session = await getServerSession();
+  const session = await getServerSession(nextAuthOptions) as MatizeSession;
 
   if (!session) {
     redirect('/api/auth/signin');
   }
 
   const user = session.user as AuthenticatedUser;
-  const sidebarMenu = await getSidebarMenu();
+  const sidebarMenu = await getSidebarMenu(session);
 
   return (
     <SidebarProvider>
@@ -32,23 +33,23 @@ export default async function MainLayout({ children }: IMainLayout) {
   );
 }
 
-async function getSidebarMenu(): Promise<MenuAdminView[]> {
-  const cookieStore = cookies();
-  const token = cookieStore.get(String(process.env.MATIZE_COOKIE));
+async function getSidebarMenu(session: any): Promise<MenuAdminView[]> { 
+  console.log(session);
+  let dashboard = [] as MenuAdminView[];
 
-  if (!token) {
-    redirect('/api/auth/signin');
+  if (!session.access_token) {
+    return dashboard;
   }
 
   try {
     const response = await matizeV2.get('admin-dashboard', {
       headers: {
-        Authorization: bearerToken(token.value)
+        Authorization: bearerToken(session.access_token)
       }
     });
-    const dashboard = response.data as MenuAdminView[];
+    dashboard = response.data as MenuAdminView[];
     return dashboard;
   } catch (error) {
-    redirect('/api/auth/signin');
+    return dashboard;
   }
 }

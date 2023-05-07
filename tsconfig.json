@@ -25,6 +25,7 @@
     ],
     "paths": {
       "@API/*": ["./src/services/api/*"],
+      "@Auth/*": ["./src/app/api/auth/[...nextauth]/*"],
       "@Components/*": ["./src/components/*"],
       "@Contexts/*": ["./src/contexts/*"],
       "@Errors/*": ["./src/errors/*"],
