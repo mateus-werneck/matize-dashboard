@@ -5,6 +5,7 @@ import { MenuButton } from '@Components/Header/MenuButton/index';
 import { SearchBar } from '@Components/Header/SearchBar';
 import { MenuAdminView } from '@Types/menu';
 import { AuthenticatedUser } from '@Types/user';
+import { signOut } from 'next-auth/react';
 import { SideBar } from './SideBar';
 import { HeaderLeftContainer, HeaderMainContainer } from './style';
 
@@ -14,6 +15,13 @@ interface IHeader {
 }
 
 export function Header({ user, sidebarMenu }: IHeader) {
+  if (sidebarMenu.length === 0) {
+    signOut({
+      redirect: true,
+      callbackUrl: '/api/auth/signin'
+    })
+  }
+
   return (
       <HeaderMainContainer>
         <HeaderLeftContainer>

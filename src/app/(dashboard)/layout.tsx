@@ -16,7 +16,7 @@ interface IMainLayout {
 }
 
 export default async function MainLayout({ children }: IMainLayout) {
-  const session = await getServerSession(nextAuthOptions) as MatizeSession;
+  const session = (await getServerSession(nextAuthOptions)) as MatizeSession;
 
   if (!session) {
     redirect('/api/auth/signin');
@@ -33,8 +33,7 @@ export default async function MainLayout({ children }: IMainLayout) {
   );
 }
 
-async function getSidebarMenu(session: any): Promise<MenuAdminView[]> { 
-  console.log(session);
+async function getSidebarMenu(session: any): Promise<MenuAdminView[]> {
   let dashboard = [] as MenuAdminView[];
 
   if (!session.access_token) {
