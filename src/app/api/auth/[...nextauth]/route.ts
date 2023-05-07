@@ -1,6 +1,6 @@
-import { matizeV2 } from '@API/matize';
+import { matizeSSR, matizeV2 } from '@API/matize';
 import { MatizeUser } from '@Types/user';
-import { basicToken } from '@Utils/String';
+import { basicToken, bearerToken } from '@Utils/String';
 import jwt_decode from 'jwt-decode';
 import type { NextAuthOptions, User } from 'next-auth';
 import { JWT } from 'next-auth/jwt';
@@ -31,7 +31,7 @@ export const nextAuthOptions: NextAuthOptions = {
       },
       async authorize(credentials) {
         try {
-          const response = await matizeV2.post('/token', undefined, {
+          const response = await matizeSSR.post('/token', undefined, {
             headers: {
               Authorization: basicToken(
                 String(credentials?.email),
@@ -52,19 +52,7 @@ export const nextAuthOptions: NextAuthOptions = {
             return null;
           }
 
-          // const serverCookies = cookies() as ServerSideCookies;
-          // serverCookies.set(String(process.env.MATIZE_COOKIE), access_token);
-
-          // setCookie(
-          //   { res },
-          //   String(process.env.NEXT_PUBLIC_MATIZE_COOKIE),
-          //   access_token,
-          //   {
-          //     maxAge: 86400,
-          //     path: '/',
-          //     httpOnly: true
-          //   }
-          // );
+          matizeV2.defaults.headers.common['Authorization'] = bearerToken(access_token);
 
           return {
             email: user.email,

@@ -39,7 +39,7 @@ async function getSidebarMenu(session: any): Promise<MenuAdminView[]> {
   if (!session.access_token) {
     return dashboard;
   }
-
+  
   try {
     const response = await matizeV2.get('admin-dashboard', {
       headers: {

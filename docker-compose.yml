@@ -1,0 +1,16 @@
+services:
+  matize-internal:
+    build: 
+      dockerfile: Dockerfile
+      context: ./
+      target: development 
+    restart: always
+    container_name: matize-internal
+    env_file:
+      - .env
+    ports:
+      - 9013:80
+    volumes:
+      - .:/usr/src/app/dashboard
+      - /usr/src/app/dashboard/node_modules
+    command: npm run dev
