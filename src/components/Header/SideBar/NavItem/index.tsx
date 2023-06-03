@@ -18,6 +18,11 @@ export interface INavBarItem {
   children?: React.ReactNode;
 }
 
+interface INavLink extends INavBarItem {
+  icon: string;
+  iconSize: 'small' | 'medium' | 'large' | 'inherit';
+}
+
 const MenuIcons: MenuIconsType = {
   HomeIcon: <HomeIcon />,
   InventoryIcon: <InventoryIcon />,
@@ -33,74 +38,55 @@ type MenuIconsType = {
 };
 
 export const NavBarItem = (props: INavBarItem) => {
-  const { getNavBarLink } = useNavBarLink(props);
+  const navBarLinkProps = {
+    ...props,
+    icon: props.icon == undefined ? 'StandardIcon' : props.icon,
+    iconSize: props.iconSize == undefined ? 'small' : props.iconSize
+  };
+
+  const { getNavBarLink } = useNavBarLink(navBarLinkProps);
   return <NavBarLine>{getNavBarLink()}</NavBarLine>;
 };
 
-function useNavBarLink({
-  route,
-  name,
-  icon,
-  iconPosition,
-  iconSize,
-  children
-}: INavBarItem) {
+function useNavBarLink(props: INavLink) {
   const { isMinimalActive } = useSidebar();
 
   function getNavBarLink(): JSX.Element {
-    const customStyle = getCustomStyle();
+    return <NavBarLink href={props.route}>{getNavBarLabel()}</NavBarLink>;
+  }
 
+  function getNavBarLabel(): JSX.Element {
     return (
-      <NavBarLink href={route} customstyle={customStyle}>
-        {(isLeftPosition() && children !== undefined) && children}
-        {isLeftPosition() && getIcon()}
-        {name != '' && (
-          <NavBarLinkLabel customstyle={customStyle}>{name}</NavBarLinkLabel>
-        )}
-         {(!isLeftPosition() && children !== undefined) && children}
-        {!isLeftPosition() && getIcon()}
-      </NavBarLink>
+      <>
+        {isIconLeftPosition() && getIcon()}
+        <NavBarLinkLabel
+          customProps={{
+            display: props.name == '' ? 'none' : 'block',
+            marginLeft: isLeftStandardStyle() ? '0' : '2.25rem',
+            fontSize: props.icon !== 'ArrowForwardIcon' ? '0.7rem' : '0.6rem'
+          }}
+        >
+          {props.name}
+        </NavBarLinkLabel>
+        {!isIconLeftPosition() && getIcon()}
+      </>
     );
   }
 
-  function isLeftPosition(): boolean {
-    return iconPosition !== undefined && iconPosition === 'left';
-  }
-
-  function getCustomStyle() {
-    return {
-      NavBarLink: {
-        justifyContent:
-          isLeftStandardStyle() && icon !== 'ArrowForwardIcon'
-            ? 'space-evenly'
-            : 'space-between',
-        svg: {
-          marginRight: isLeftStandardStyle() ? '-1.5rem' : '1.5rem'
-        }
-      },
-      NavBarLinkLabel: {
-        marginLeft: isLeftStandardStyle() ? '0' : '2.25rem',
-        fontSize: icon !== 'ArrowForwardIcon' ? '0.7rem' : '0.6rem'
-      }
-    };
-  }
-
   function isLeftStandardStyle(): boolean {
-    return isLeftPosition() && !isMinimalActive();
+    return isIconLeftPosition() && !isMinimalActive();
+  }
+
+  function isIconLeftPosition(): boolean {
+    return String(props.iconPosition) === 'left';
   }
 
   function getIcon(): React.ReactNode {
-    if (!icon) return <></>;
+    const menuIcon = MenuIcons[props.icon];
 
-    let menuIcon = MenuIcons[icon];
-
-    if (iconSize) {
-      menuIcon = React.cloneElement(menuIcon as React.ReactElement, {
-        style: { fontSize: iconSize }
-      });
-    }
-
-    return menuIcon;
+    return React.cloneElement(menuIcon as React.ReactElement, {
+      fontSize: isMinimalActive() ? 'medium' : props.iconSize
+    });
   }
 
   return { getNavBarLink, getIcon };

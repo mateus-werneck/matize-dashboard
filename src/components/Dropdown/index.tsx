@@ -3,10 +3,10 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import React, { CSSProperties, useState } from 'react';
 import {
-  DropDownButtonContainer,
-  DropDownLine,
-  DropDownNav,
-  DropDownNavUl
+	DropDownButtonContainer,
+	DropDownLine,
+	DropDownNav,
+	DropDownNavUl
 } from './style';
 
 interface IDropDown {
@@ -18,6 +18,7 @@ interface IDropDown {
 
 export const MatizeDropDown = (props: IDropDown) => {
   const { getArrowDownButton, getActions } = useDropDownMenu(props);
+
   return (
     <DropDownButtonContainer>
       {getArrowDownButton()}
@@ -26,33 +27,23 @@ export const MatizeDropDown = (props: IDropDown) => {
   );
 };
 
-function useDropDownMenu({
-  actions,
-  button,
-  arrowStyles,
-  dropDownStyles
-}: IDropDown) {
+function useDropDownMenu(props: IDropDown) {
   const [showDropDown, setDropDownVisibility] = useState<boolean>(false);
 
-  function getArrowDownButton() {
-    function onClick(e: React.MouseEvent<HTMLButtonElement>) {
-      e.preventDefault();
-      setDropDownVisibility((previousValue: any) => !previousValue);
-    }
-
+  function getArrowDownButton(): JSX.Element {
     const arrowButton = (
-      <MatizeButton onClick={onClick} variant="text" size="small">
+      <MatizeButton onClick={onClickDropDown} variant="text" size="small">
         {!showDropDown ? (
-          <KeyboardArrowDownIcon style={arrowStyles} />
+          <KeyboardArrowDownIcon style={props.arrowStyles} />
         ) : (
-          <KeyboardArrowUpIcon style={arrowStyles} />
+          <KeyboardArrowUpIcon style={props.arrowStyles} />
         )}
       </MatizeButton>
     );
 
-    if (button !== undefined) {
-      return React.cloneElement(button, {
-        ...button.props,
+    if (props.button !== undefined) {
+      return React.cloneElement(props.button, {
+        ...props.button.props,
         children: arrowButton
       });
     }
@@ -60,15 +51,20 @@ function useDropDownMenu({
     return arrowButton;
   }
 
-  function getActions() {
+  function onClickDropDown(e: React.MouseEvent<HTMLButtonElement>): void {
+    e.preventDefault();
+    setDropDownVisibility((previousValue: any) => !previousValue);
+  }
+
+  function getActions(): JSX.Element {
     if (!showDropDown) {
       return <></>;
     }
 
     return (
-      <DropDownNav style={dropDownStyles}>
+      <DropDownNav style={props.dropDownStyles}>
         <DropDownNavUl>
-          {actions.map((action, index) => (
+          {props.actions.map((action, index) => (
             <DropDownLine key={'DropDownLine_' + index + '_' + action.key}>
               {action}
             </DropDownLine>

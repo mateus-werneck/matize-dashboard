@@ -3,13 +3,12 @@ import { NavBarItem } from '@Components/Header/SideBar/NavItem';
 import { useSidebar } from '@Contexts/SidebarContext';
 import { MenuAdminView } from '@Types/menu';
 import { AuthenticatedUser } from '@Types/user';
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { HeaderNavBar, SideBarContainer } from './style';
 
 interface ISideBar {
   user: AuthenticatedUser;
   sidebarMenu: MenuAdminView[];
-
 }
 
 export const SideBar = ({ user, sidebarMenu }: ISideBar) => {
@@ -31,15 +30,11 @@ export const SideBar = ({ user, sidebarMenu }: ISideBar) => {
   );
 };
 
-function useDashboard(user:AuthenticatedUser, sideBarMenu: MenuAdminView[]) {
-  const [dashboard, setDashboard] = useState<JSX.Element[]>(
-    [] as JSX.Element[]
-  );
+function useDashboard(user: AuthenticatedUser, sideBarMenu: MenuAdminView[]) {
   const { isMinimalActive, minimalSidebar } = useSidebar();
-
-  useEffect(() => {
-    renderDashboard();
-  }, []);
+  const [dashboard, setDashboard] = useState<JSX.Element[]>(
+    getTreatedDashboard(sideBarMenu)
+  );
 
   useMemo(() => {
     renderDashboard();
@@ -75,16 +70,24 @@ function useDashboard(user:AuthenticatedUser, sideBarMenu: MenuAdminView[]) {
   }
 
   function getNavBarItem(menu: MenuAdminView): JSX.Element {
+    const customProps = getNavBarCustomProps(menu);
+
     return (
       <NavBarItem
         key={menu['name'] + '-' + menu['icon']}
         route={menu['route']}
-        name={getNavBarItemName(menu['name'])}
         icon={menu['icon']}
-        iconPosition={getNavBarItemIconPosition(menu)}
-        iconSize={getNavBarItemIconSize(menu)}
+        {...customProps}
       />
     );
+  }
+
+  function getNavBarCustomProps(menu: MenuAdminView) {
+    return {
+      name: getNavBarItemName(menu['name']),
+      iconPosition: getNavBarItemIconPosition(menu),
+      iconSize: getNavBarItemIconSize(menu)
+    };
   }
 
   function getNavBarItemName(name: string): string {
@@ -96,11 +99,9 @@ function useDashboard(user:AuthenticatedUser, sideBarMenu: MenuAdminView[]) {
   }
 
   function getNavBarItemIconPosition(menu: MenuAdminView): 'left' | 'right' {
-    let iconPosition: 'left' | 'right' = 'right';
+    let iconPosition: 'left' | 'right' = 'left';
 
-    if (menu.name === 'Conta') iconPosition = 'left';
-
-    if (menu.icon === 'ArrowForwardIcon') iconPosition = 'left';
+    if (menu.icon === 'ArrowForwardIcon') iconPosition = 'right';
 
     return iconPosition;
   }
@@ -111,7 +112,7 @@ function useDashboard(user:AuthenticatedUser, sideBarMenu: MenuAdminView[]) {
     let iconSize: 'small' | 'medium' | 'large' | 'inherit' | undefined =
       'inherit';
 
-    if (menu.name === 'Conta') iconSize = undefined;
+    if (menu.name === 'Conta' && user.name) iconSize = 'medium';
 
     if (menu.icon === 'ArrowForwardIcon') iconSize = 'small';
 
@@ -121,20 +122,22 @@ function useDashboard(user:AuthenticatedUser, sideBarMenu: MenuAdminView[]) {
   function getNavBarItemWithChildren(menu: MenuAdminView) {
     const actions = menu.Children.map((child) => getNavBarItem(child));
     return (
-      <MatizeDropDown
-        key={menu['name'] + '-' + menu['icon'] + '-dropdown'}
-        actions={actions}
-        button={getNavBarItem(menu)}
-        arrowStyles={{ marginLeft: '5.25rem' }}
-        dropDownStyles={{
-          marginTop: 0,
-          marginLeft: 0,
-          width: '250px',
-          border: 'none',
-          borderRadius: 0,
-          boxShadow: 'none'
-        }}
-      />
+      <div>
+        <MatizeDropDown
+          key={menu['name'] + '-' + menu['icon'] + '-dropdown'}
+          actions={actions}
+          button={getNavBarItem(menu)}
+          // arrowStyles={{ marginLeft: '5.25rem' }}
+          dropDownStyles={{
+            marginTop: 0,
+            marginLeft: 0,
+            width: '250px',
+            border: 'none',
+            borderRadius: 0,
+            boxShadow: 'none'
+          }}
+        />
+      </div>
     );
   }
 
